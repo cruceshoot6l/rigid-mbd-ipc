@@ -306,6 +306,8 @@ cppFiles = [
             'src/System/CLoad.cpp',
             'src/System/CNode.cpp',
             'src/System/CObjectBody.cpp',
+            'src/System/PotentialCCD.cpp',
+            'src/System/PotentialContact.cpp',
             'src/System/CObjectConnector.cpp',
             'src/System/CSensor.cpp',
             'src/System/MainNode.cpp',

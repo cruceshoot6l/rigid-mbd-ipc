@@ -64,6 +64,8 @@ add_executable(cppsrc
   ..\src\System\CLoad.cpp
   ..\src\System\CNode.cpp
   ..\src\System\CObjectBody.cpp
+  ..\src\System\PotentialCCD.cpp
+  ..\src\System\PotentialContact.cpp
   ..\src\System\MainNode.cpp
   ..\src\System\MainObject.cpp
   ..\src\tests\UnitTestBase.cpp

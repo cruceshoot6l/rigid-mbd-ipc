@@ -57,8 +57,28 @@ public:
 		return AddTrianglesRigidBodyBased(rigidBodyMarkerIndexInit, contactStiffnessInit, contactDampingInit, frictionMaterialIndexInit, pointList, triangleList, staticTriangles);
 	}
 
+	Index PyAddRigidBodySurfaceMesh(Index rigidBodyMarkerIndexInit, const py::object& pointListInit, const py::object& triangleListInit,
+		Index frictionMaterialIndexInit = 0, bool staticMesh = false)
+	{
+		ResizableArray<Vector3D> pointList;
+		ResizableArray<Index3> triangleList;
+
+		EPyUtils::SetListOfArraysSafely<Vector3D, Real>(pointListInit, pointList);
+		EPyUtils::SetListOfArraysSafely<Index3, Index>(triangleListInit, triangleList);
+
+		return AddRigidBodySurfaceMesh(rigidBodyMarkerIndexInit, frictionMaterialIndexInit, pointList, triangleList, staticMesh);
+	}
+
 	Index GetResetSearchTreeInterval() const { return settings.resetSearchTreeInterval; }
 	void SetResetSearchTreeInterval(Index value) { settings.resetSearchTreeInterval = value; }
+
+	Index GetContactFormulation() const { return (Index)settings.contactFormulation; }
+	void SetContactFormulation(Index value)
+	{
+		CHECKandTHROW(value >= (Index)ContactFormulation::Penalty && value <= (Index)ContactFormulation::OGCBarrier,
+			"GeneralContact::contactFormulation out of range");
+		settings.contactFormulation = (ContactFormulation::Type)value;
+	}
 
 	bool GetSphereSphereContact() const { return settings.sphereSphereContact; }
 	void SetSphereSphereContact(bool flag) { settings.sphereSphereContact = flag; }
@@ -87,6 +107,24 @@ public:
 	//!< compute contribution of contact forces to systemODE2Rhs
 	bool GetComputeContactForces() const { return settings.computeContactForces; }
 	void SetComputeContactForces(bool value) { settings.computeContactForces = value; }
+
+	Real GetBarrierActivationDistance() const { return settings.barrierActivationDistance; }
+	void SetBarrierActivationDistance(Real value) { settings.barrierActivationDistance = value; }
+
+	Real GetBarrierStiffness() const { return settings.barrierStiffness; }
+	void SetBarrierStiffness(Real value) { settings.barrierStiffness = value; }
+
+	Real GetBarrierMinimumDistance() const { return settings.barrierMinimumDistance; }
+	void SetBarrierMinimumDistance(Real value) { settings.barrierMinimumDistance = value; }
+
+	bool GetUseNonlinearCCDStepFilter() const { return settings.useNonlinearCCDStepFilter; }
+	void SetUseNonlinearCCDStepFilter(bool value) { settings.useNonlinearCCDStepFilter = value; }
+
+	Real GetCCDTolerance() const { return settings.ccdTolerance; }
+	void SetCCDTolerance(Real value) { settings.ccdTolerance = value; }
+
+	bool GetUseGaussNewtonHessian() const { return settings.useGaussNewtonHessian; }
+	void SetUseGaussNewtonHessian(bool value) { settings.useGaussNewtonHessian = value; }
 
 	//! if true, uses exact computation of intersection of 3rd order polynomials and contacting circles
 	bool GetAncfCableUseExactMethod() const { return settings.ancfCableUseExactMethod; }
@@ -278,6 +316,59 @@ public:
 		}
 	}
 
+	py::object PyGetRigidBodySurfaceMesh(Index localIndex, bool includeJacobians = false) const
+	{
+		if (localIndex >= potentialRigidMeshes.NumberOfItems())
+		{
+			PyError("GeneralContact::GetRigidBodySurfaceMesh: localIndex out of range");
+		}
+		const auto& mesh = potentialRigidMeshes[localIndex];
+		auto d = py::dict();
+
+		d["markerIndex"] = (py::int_)mesh.markerIndex;
+		d["frictionMaterialIndex"] = (py::int_)mesh.frictionMaterialIndex;
+		d["staticMesh"] = mesh.staticMesh;
+		d["numberOfVertices"] = mesh.verticesLocal.NumberOfItems();
+		d["numberOfTriangles"] = mesh.triangles.NumberOfItems();
+		d["markerPosition"] = EPyUtils::SlimVector2NumPy(mesh.state.markerPosition);
+		d["markerOrientation"] = EPyUtils::Matrix2NumPyTemplate<Matrix3D>(mesh.state.markerOrientation);
+		d["markerVelocity"] = EPyUtils::SlimVector2NumPy(mesh.state.markerVelocity);
+		d["markerAngularVelocityLocal"] = EPyUtils::SlimVector2NumPy(mesh.state.markerAngularVelocityLocal);
+		d["ltg"] = EPyUtils::ArrayIndex2NumPy(mesh.state.markerLTG);
+
+		Matrix verticesLocal;
+		Matrix verticesWorld;
+		Matrix vertexVelocities;
+		Matrix boxesMin;
+		Matrix boxesMax;
+		MatrixI triangles;
+		PotentialContact::LocalVerticesToMatrix(mesh.verticesLocal, verticesLocal);
+		PotentialContact::CurrentVerticesToMatrix(mesh.vertexKinematics, verticesWorld);
+		PotentialContact::CurrentVelocitiesToMatrix(mesh.vertexKinematics, vertexVelocities);
+		PotentialContact::TrianglesToMatrixI(mesh.triangles, triangles);
+		PotentialContact::TriangleBoxesToMatrices(mesh.triangleAABBs, boxesMin, boxesMax);
+		d["verticesLocal"] = EPyUtils::Matrix2NumPy(verticesLocal);
+		d["verticesWorld"] = EPyUtils::Matrix2NumPy(verticesWorld);
+		d["vertexVelocities"] = EPyUtils::Matrix2NumPy(vertexVelocities);
+		d["triangles"] = EPyUtils::MatrixI2NumPy(triangles);
+		d["triangleAABBsMin"] = EPyUtils::Matrix2NumPy(boxesMin);
+		d["triangleAABBsMax"] = EPyUtils::Matrix2NumPy(boxesMax);
+
+		if (includeJacobians)
+		{
+			d["markerPositionJacobian"] = EPyUtils::Matrix2NumPyTemplate<ResizableMatrix>(mesh.state.markerPositionJacobian);
+			d["markerRotationJacobian"] = EPyUtils::Matrix2NumPyTemplate<ResizableMatrix>(mesh.state.markerRotationJacobian);
+			auto jacobians = py::list();
+			for (const auto& vertex : mesh.vertexKinematics)
+			{
+				jacobians.append(EPyUtils::Matrix2NumPyTemplate<ResizableMatrix>(vertex.positionJacobian));
+			}
+			d["vertexJacobians"] = jacobians;
+		}
+
+		return d;
+	}
+
 	//! measure shortest distance to object along line with start point and direction; return false, if no item found inside given min/max distance
 	//! only points accepted in range [minDistance, maxDistance] including min, but excluding maxDistance
 	//! if asDictionary=True, the function returns a dictionary with detailed information; returns also velocity, which is the velocity of the object in direction, not necessarily the time derivative of the distance
@@ -320,6 +411,11 @@ public:
         UpdateContacts(mainSystem.GetCSystem());
     }
 
+	void PyUpdateRigidBodySurfaceMeshes(const MainSystem& mainSystem, bool computeJacobians = true)
+	{
+		UpdatePotentialRigidMeshes(mainSystem.GetCSystem(), computeJacobians);
+	}
+
     //! get contact interactions of itemIndex of type selectedTypeIndex, e.g. IndexSpheresMarkerBased with index 2
 	//! returns list of contacts, with global indices OR in case of itemIndex == -1, it will return all items with active contacts of the contact type (0=first contact type item)
     py::object PyGetActiveContacts(Contact::TypeIndex selectedTypeIndex, Index itemIndex)
@@ -344,17 +440,29 @@ public:
 
 		//this function currently is very slow!
 		auto d = py::dict();
+		d["contactFormulation"] = (Index)settings.contactFormulation;
 		d["sphereSphereContact"] = settings.sphereSphereContact;
 		d["sphereSphereFrictionRecycle"] = settings.sphereSphereFrictionRecycle;
 		d["globalContactIndexOffsets"] = EPyUtils::ArrayIndex2NumPy(globalContactIndexOffsets);
 		d["frictionPairings"] = EPyUtils::Matrix2NumPy(settings.frictionPairings);
 		d["frictionProportionalZone "] = settings.frictionProportionalZone;
+		d["barrierActivationDistance"] = settings.barrierActivationDistance;
+		d["barrierStiffness"] = settings.barrierStiffness;
+		d["barrierMinimumDistance"] = settings.barrierMinimumDistance;
+		d["useNonlinearCCDStepFilter"] = settings.useNonlinearCCDStepFilter;
+		d["ccdTolerance"] = settings.ccdTolerance;
+		d["useGaussNewtonHessian"] = settings.useGaussNewtonHessian;
+		d["potentialContactModuleVersion"] = PotentialContact::GetModuleVersionTag();
+		d["lastPotentialContactCandidates"] = GetLastPotentialContactSummary().numberOfCandidates;
+		d["lastPotentialContactMinimumDistance"] = GetLastPotentialContactSummary().minimumDistance;
+		d["lastPotentialContactUsedGaussNewtonHessian"] = GetLastPotentialContactSummary().usedGaussNewtonHessian;
 
 		//basic info on contact objects
 		d["numberOfSpheresMarkerBased"] = spheresMarkerBased.NumberOfItems();
 		d["numberOfANCFCable2D"] = ancfCable2D.NumberOfItems();
 		d["numberOfTrigsRigidBodyBased"] = trigsRigidBodyBased.NumberOfItems();
 		d["numberOfRigidBodyMarkerBased"] = rigidBodyMarkerBased.NumberOfItems();
+		d["numberOfRigidBodySurfaceMeshes"] = potentialRigidMeshes.NumberOfItems();
 
 		auto box = py::list();
 		box.append(EPyUtils::SlimVector2NumPy<3>(searchTree.GetBox().PMin()));

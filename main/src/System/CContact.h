@@ -29,6 +29,7 @@
 #include "Utilities/AdvancedStuff.h"
 #include "Linalg/SearchTree.h"
 #include "Main/TemporaryComputationData.h"
+#include "System/PotentialContact.h"
 
 #include "Objects/CObjectANCFCable2DBase.h"
 
@@ -105,6 +106,25 @@ namespace Contact {
 		return t;
 	}
 
+};
+
+namespace ContactFormulation {
+	enum Type {
+		Penalty = 0,
+		IPCBarrier = 1,
+		GCPBarrier = 2,
+		OGCBarrier = 3
+	};
+
+	inline STDstring GetTypeString(Type var)
+	{
+		if (var == Penalty) { return "Penalty"; }
+		if (var == IPCBarrier) { return "IPCBarrier"; }
+		if (var == GCPBarrier) { return "GCPBarrier"; }
+		if (var == OGCBarrier) { return "OGCBarrier"; }
+		CHECKandTHROWstring("ContactFormulation::GetTypeString(...) called for invalid type!");
+		return "Invalid";
+	}
 };
 
 //short-term contacts:
@@ -232,6 +252,7 @@ public:
 class GeneralContactSettings
 {
 public:
+	ContactFormulation::Type contactFormulation;	//!< selects contact formulation for GeneralContact; week-1 integration keeps Penalty behavior as default
 	Index3 searchTreeSizeInit;						//!< initialization for search tree sizes
 	Vector3D searchTreeBoxMinInit;					//!< initialization for searchTree box
 	Vector3D searchTreeBoxMaxInit;					//!< initialization for searchTree box
@@ -246,6 +267,12 @@ public:
 	bool computeExactStaticTriangleBins;			//!< if True, search tree bins are computed exactly for static triangles while if False, it uses the overall (=very inaccurate) AABB of each triangle in the search tree
 
 	bool computeContactForces;						//!< if true, contribution of contact forces to system vector is evaluated
+	Real barrierActivationDistance;					//!< activation distance for barrier-based contact formulations
+	Real barrierStiffness;							//!< stiffness / scaling parameter for barrier potential
+	Real barrierMinimumDistance;					//!< lower bound distance used in barrier-based formulations
+	bool useNonlinearCCDStepFilter;					//!< if true, nonlinear CCD based feasible-step filtering is enabled for barrier formulations
+	Real ccdTolerance;								//!< tolerance used for nonlinear CCD step filtering
+	bool useGaussNewtonHessian;						//!< if true, use a PSD / Gauss-Newton style tangent approximation for barrier-based contact
 
 	Real tolEquivalentPoints;						//!< tolerance distance of projected points that are considered to be equivalent; 
 	Real tolEquivalentPointsSquared;				//!< squared tolerance distance of projected points, considered to be equivalent;
@@ -265,6 +292,7 @@ public:
 	GeneralContactSettings() { Reset(); }
 	void Reset()
 	{
+		contactFormulation = ContactFormulation::Penalty;
 		searchTreeSizeInit = Index3({ 10, 10, 10 }); //surely not optimal, but better than {1,1,1}
 		searchTreeBoxMinInit = Vector3D(EXUstd::MAXREAL);
 		searchTreeBoxMaxInit = Vector3D(EXUstd::LOWESTREAL);
@@ -280,6 +308,12 @@ public:
 		computeExactStaticTriangleBins = true;
 
 		computeContactForces = false;
+		barrierActivationDistance = 1e-3;
+		barrierStiffness = 1.;
+		barrierMinimumDistance = 1e-8;
+		useNonlinearCCDStepFilter = false;
+		ccdTolerance = 1e-6;
+		useGaussNewtonHessian = true;
 
 		tolEquivalentPoints = 1e-13;
 		tolEquivalentPointsSquared = EXUstd::Square(tolEquivalentPoints);
@@ -340,9 +374,10 @@ protected:
 	Index trigsRigidBodyBasedDynamicStartIndex;							//!< start index at which dynamic triangles start (others are not changing)
 	bool staticContactObjectsInitialized;								//!< flag to determine if static objects have been initialized for search tree, etc.
 
-
 	//this is only a base list, not directly evaluated for contacts
 	ResizableArray<ContactRigidBodyMarkerBased> rigidBodyMarkerBased;	//!< these are rigid bodies, underlying the triangles
+	ResizableArray<PotentialContact::PotentialRigidMesh> potentialRigidMeshes; //!< rigid surface meshes for potential-based contact formulations
+	PotentialContact::EvaluationSummary lastPotentialContactSummary; //!< summary of the last potential-contact evaluation pass
 
 	//this is not nice but helps to avoid copy-paste error for new contacts:
 	//**ICI individual contact implementation
@@ -481,6 +516,8 @@ public:
 	const ResizableArray<ContactANCFCable2D>& GetANCFCable2D() const { return ancfCable2D; }
 	const ResizableArray<ContactTriangleRigidBodyBased>& TrigsRigidBodyBased() const { return trigsRigidBodyBased; }
 	const ResizableArray<ContactRigidBodyMarkerBased>& RigidBodyMarkerBased() const { return rigidBodyMarkerBased; }
+	const ResizableArray<PotentialContact::PotentialRigidMesh>& GetPotentialRigidMeshes() const { return potentialRigidMeshes; }
+	const PotentialContact::EvaluationSummary& GetLastPotentialContactSummary() const { return lastPotentialContactSummary; }
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -500,6 +537,10 @@ public:
 	//! staticTriangles can be used to put triangles only to a static searchtree which is not updated during computation
 	Index AddTrianglesRigidBodyBased(Index rigidBodyMarkerIndex, Real contactStiffness, Real contactDamping, 
 		Index frictionMaterialIndex, ResizableArray<Vector3D> pointList, ResizableArray<Index3> triangleList, bool staticTriangles = false);
+
+	//! add rigid surface mesh attached to rigidBodyMarker for potential-based contact; returns local mesh index in potentialRigidMeshes
+	Index AddRigidBodySurfaceMesh(Index rigidBodyMarkerIndex, Index frictionMaterialIndex,
+		const ResizableArray<Vector3D>& pointList, const ResizableArray<Index3>& triangleList, bool staticMesh = false);
 
 	//! set up necessary parameters for contact: friction, SearchTree, etc.; automatically done in mbs.Assemble()
 	//! at this point, it will also be checked if something is wrong (illegal pairings or frictionMaterial coeffs, etc.)
@@ -540,6 +581,8 @@ public:
 	//! compute Data for rigidBodyMarkerBased and bounding boxes for trigsRigidBodyBased
 	void ComputeDataAndBBtrigsRigidBodyBased(const CSystemData& systemData, TemporaryComputationDataArray& tempArray,
 		Index nThreads, bool updateBoundingBoxes);
+	//! update world-space rigid surface mesh kinematics for potential-based contact
+	void UpdatePotentialRigidMeshes(const CSystem& cSystem, bool computeJacobians = true);
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -562,6 +605,7 @@ public:
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//! compute contact forces and add to global system vector
 	void ComputeODE2RHS(const CSystem& cSystem, TemporaryComputationDataArray& tempArray, Vector& systemODE2Rhs);
+	void ComputePotentialContactODE2RHS(const CSystem& cSystem, TemporaryComputationDataArray& tempArray, Vector& systemODE2Rhs);
 
 	//! compute LHS jacobian of ODE2RHS w.r.t. ODE2 and ODE2_t quantities; 
 	//! multiply (before added to jacobianGM) ODE2 with factorODE2 and ODE2_t with factorODE2_t
