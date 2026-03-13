@@ -117,6 +117,27 @@ public:
 	Real GetBarrierMinimumDistance() const { return settings.barrierMinimumDistance; }
 	void SetBarrierMinimumDistance(Real value) { settings.barrierMinimumDistance = value; }
 
+	Index GetGCPBarrierPower() const { return settings.gcpBarrierPower; }
+	void SetGCPBarrierPower(Index value) { settings.gcpBarrierPower = value; }
+
+	Real GetGCPAlphaT() const { return settings.gcpAlphaT; }
+	void SetGCPAlphaT(Real value) { settings.gcpAlphaT = value; }
+
+	Real GetGCPBetaT() const { return settings.gcpBetaT; }
+	void SetGCPBetaT(Real value) { settings.gcpBetaT = value; }
+
+	Real GetGCPAlphaN() const { return settings.gcpAlphaN; }
+	void SetGCPAlphaN(Real value) { settings.gcpAlphaN = value; }
+
+	Real GetGCPBetaN() const { return settings.gcpBetaN; }
+	void SetGCPBetaN(Real value) { settings.gcpBetaN = value; }
+
+	Real GetGCPInteriorEpsilon() const { return settings.gcpInteriorEpsilon; }
+	void SetGCPInteriorEpsilon(Real value) { settings.gcpInteriorEpsilon = value; }
+
+	bool GetEnablePotentialFriction() const { return settings.enablePotentialFriction; }
+	void SetEnablePotentialFriction(bool value) { settings.enablePotentialFriction = value; }
+
 	bool GetUseNonlinearCCDStepFilter() const { return settings.useNonlinearCCDStepFilter; }
 	void SetUseNonlinearCCDStepFilter(bool value) { settings.useNonlinearCCDStepFilter = value; }
 
@@ -322,13 +343,14 @@ public:
 		{
 			PyError("GeneralContact::GetRigidBodySurfaceMesh: localIndex out of range");
 		}
-		const auto& mesh = potentialRigidMeshes[localIndex];
+		const auto& mesh = *potentialRigidMeshes[localIndex];
 		auto d = py::dict();
 
 		d["markerIndex"] = (py::int_)mesh.markerIndex;
 		d["frictionMaterialIndex"] = (py::int_)mesh.frictionMaterialIndex;
 		d["staticMesh"] = mesh.staticMesh;
 		d["numberOfVertices"] = mesh.verticesLocal.NumberOfItems();
+		d["numberOfEdges"] = mesh.edges.NumberOfItems();
 		d["numberOfTriangles"] = mesh.triangles.NumberOfItems();
 		d["markerPosition"] = EPyUtils::SlimVector2NumPy(mesh.state.markerPosition);
 		d["markerOrientation"] = EPyUtils::Matrix2NumPyTemplate<Matrix3D>(mesh.state.markerOrientation);
@@ -449,13 +471,54 @@ public:
 		d["barrierActivationDistance"] = settings.barrierActivationDistance;
 		d["barrierStiffness"] = settings.barrierStiffness;
 		d["barrierMinimumDistance"] = settings.barrierMinimumDistance;
+		d["gcpBarrierPower"] = settings.gcpBarrierPower;
+		d["gcpAlphaT"] = settings.gcpAlphaT;
+		d["gcpBetaT"] = settings.gcpBetaT;
+		d["gcpAlphaN"] = settings.gcpAlphaN;
+		d["gcpBetaN"] = settings.gcpBetaN;
+		d["gcpInteriorEpsilon"] = settings.gcpInteriorEpsilon;
+		d["enablePotentialFriction"] = settings.enablePotentialFriction;
 		d["useNonlinearCCDStepFilter"] = settings.useNonlinearCCDStepFilter;
 		d["ccdTolerance"] = settings.ccdTolerance;
 		d["useGaussNewtonHessian"] = settings.useGaussNewtonHessian;
 		d["potentialContactModuleVersion"] = PotentialContact::GetModuleVersionTag();
+		d["potentialCCDModuleVersion"] = PotentialCCD::GetModuleVersionTag();
+		d["lastPotentialContactCoarseBroadPhasePairs"] = GetLastPotentialContactSummary().numberOfCoarseBroadPhasePairs;
+		d["lastPotentialContactBroadPhasePairs"] = GetLastPotentialContactSummary().numberOfBroadPhasePairs;
+		d["lastPotentialBroadPhaseRejectedPairs"] = GetLastPotentialContactSummary().numberOfBroadPhasePairRejects;
+		d["lastPotentialMeshPairBuilderType"] = PotentialContact::GetPotentialMeshPairBuilderTypeString(
+			GetLastPotentialContactSummary().meshPairBuilderType);
+		d["lastPotentialContactVertexFaceSeeds"] = GetLastPotentialContactSummary().numberOfVertexFaceSeeds;
+		d["lastPotentialContactEdgeEdgeSeeds"] = GetLastPotentialContactSummary().numberOfEdgeEdgeSeeds;
+		d["lastPotentialContactSeeds"] = GetLastPotentialContactSummary().numberOfVertexFaceSeeds +
+			GetLastPotentialContactSummary().numberOfEdgeEdgeSeeds;
+		d["lastPotentialSeedRejectedCandidates"] = GetLastPotentialContactSummary().numberOfSeedRejects;
+		d["lastPotentialSeedBuilderType"] = PotentialContact::GetPotentialSeedBuilderTypeString(
+			GetLastPotentialContactSummary().seedBuilderType);
+		d["lastPotentialContactVertexFaceCandidates"] = GetLastPotentialContactSummary().numberOfVertexFaceCandidates;
+		d["lastPotentialContactEdgeEdgeCandidates"] = GetLastPotentialContactSummary().numberOfEdgeEdgeCandidates;
+		d["lastPotentialTangentialCandidates"] = GetLastPotentialContactSummary().numberOfTangentialCandidates;
 		d["lastPotentialContactCandidates"] = GetLastPotentialContactSummary().numberOfCandidates;
+		d["lastPotentialCollisionSetRejectedCandidates"] = GetLastPotentialContactSummary().numberOfCollisionSetRejects;
 		d["lastPotentialContactMinimumDistance"] = GetLastPotentialContactSummary().minimumDistance;
+		d["lastPotentialAccumulatedNormalEnergy"] = GetLastPotentialContactSummary().accumulatedNormalEnergy;
+		d["lastPotentialAccumulatedFrictionEnergy"] = GetLastPotentialContactSummary().accumulatedFrictionEnergy;
 		d["lastPotentialContactUsedGaussNewtonHessian"] = GetLastPotentialContactSummary().usedGaussNewtonHessian;
+		d["lastPotentialCollisionSetBuilderType"] = PotentialContact::GetPotentialCollisionSetBuilderTypeString(
+			GetLastPotentialContactSummary().collisionSetBuilderType);
+		d["potentialStepControllerModuleVersion"] = PotentialStepController::GetModuleVersionTag();
+		d["lastPotentialStepControllerType"] = PotentialContact::GetPotentialStepControllerTypeString(
+			GetLastPotentialCCDStepResult().controllerType);
+		d["lastPotentialCCDAlpha"] = GetLastPotentialCCDStepResult().alphaMax;
+		d["lastPotentialCCDMinimumDistance"] = GetLastPotentialCCDStepResult().minimumDistance;
+		d["lastPotentialCCDNumberOfEvaluations"] = GetLastPotentialCCDStepResult().numberOfDistanceEvaluations;
+		d["lastPotentialCCDStepReductions"] = GetLastPotentialCCDStepResult().numberOfStepReductions;
+		d["lastPotentialTrustRegionRejects"] = GetLastPotentialCCDStepResult().numberOfTrustRegionRejects;
+		d["lastPotentialTrustRegionRadius"] = GetLastPotentialCCDStepResult().trustRegionRadius;
+		d["lastPotentialCCDStepWasClipped"] = GetLastPotentialCCDStepResult().stepWasClipped;
+		d["lastPotentialCCDHadFailure"] = GetLastPotentialCCDStepResult().hadFailure;
+		d["totalPotentialCCDClippedSteps"] = GetTotalPotentialCCDClippedSteps();
+		d["totalPotentialCCDStepFailures"] = GetTotalPotentialCCDStepFailures();
 
 		//basic info on contact objects
 		d["numberOfSpheresMarkerBased"] = spheresMarkerBased.NumberOfItems();

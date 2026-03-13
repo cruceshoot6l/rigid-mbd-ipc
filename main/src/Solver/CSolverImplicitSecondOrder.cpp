@@ -733,6 +733,16 @@ void CSolverImplicitSecondOrderTimeInt::ComputeNewtonUpdate(CSystem& computation
 			SetPreviousNewtonSolutionLieGroupDirectUpdateNodes(computationalSystem, lieGroupDirectUpdateNewtonSolution, solutionODE2);
 		}
 
+		if (!useLieGroupIntegration && data.nODE2 != 0)
+		{
+			PotentialCCD::FeasibleStepResult potentialCCDStepResult;
+			Real feasibleStepAlpha = computationalSystem.ComputePotentialContactFeasibleNewtonStep(newtonSolutionODE2, potentialCCDStepResult);
+			if (feasibleStepAlpha < 1.)
+			{
+				data.newtonSolution *= feasibleStepAlpha;
+			}
+		}
+
 		//now only add increments
 		if (!(useLieGroupIntegration && lieGroupSimplifiedKinematicRelations))
 		{

@@ -32,6 +32,114 @@
 #ifdef USE_GENERAL_CONTACT
 namespace
 {
+	PotentialContact::PotentialModelType GetPotentialModelType(ContactFormulation::Type formulation)
+	{
+		if (formulation == ContactFormulation::IPCBarrier) { return PotentialContact::PotentialModelType::IPC; }
+		if (formulation == ContactFormulation::OGCBarrier) { return PotentialContact::PotentialModelType::OGC; }
+		return PotentialContact::PotentialModelType::GCP;
+	}
+
+	PotentialContact::PotentialModelSettings BuildPotentialModelSettings(const GeneralContactSettings& settings)
+	{
+		PotentialContact::PotentialModelSettings modelSettings;
+		modelSettings.modelType = GetPotentialModelType(settings.contactFormulation);
+		modelSettings.activationDistance = settings.barrierActivationDistance;
+		modelSettings.minimumDistance = settings.barrierMinimumDistance;
+		modelSettings.stiffness = settings.barrierStiffness;
+		modelSettings.useGaussNewtonHessian = settings.useGaussNewtonHessian;
+		modelSettings.enableFriction = settings.enablePotentialFriction;
+		modelSettings.gcpBarrierPower = settings.gcpBarrierPower;
+		modelSettings.gcpAlphaT = settings.gcpAlphaT;
+		modelSettings.gcpBetaT = settings.gcpBetaT;
+		modelSettings.gcpAlphaN = settings.gcpAlphaN;
+		modelSettings.gcpBetaN = settings.gcpBetaN;
+		modelSettings.gcpInteriorEpsilon = settings.gcpInteriorEpsilon;
+		return modelSettings;
+	}
+
+	PotentialContact::PotentialStepSettings BuildPotentialStepSettings(const GeneralContactSettings& settings,
+		PotentialContact::PotentialModelType modelType, const PotentialCCD::FeasibleStepResult* previousStepResult = nullptr)
+	{
+		PotentialContact::PotentialStepSettings stepSettings;
+		const Real referenceTolerance = settings.ccdTolerance > 0. ? settings.ccdTolerance : settings.barrierMinimumDistance;
+		// Keep the barrier clamp and the geometric step filter separate:
+		// the current step controller only guards against sign changes of the distance.
+		stepSettings.minimumDistanceTolerance = 0.;
+		stepSettings.alphaMinimum = 1e-8;
+		stepSettings.maximumReductionSteps = 20;
+		stepSettings.maximumBisectionSteps = 12;
+		if (modelType == PotentialContact::PotentialModelType::OGC)
+		{
+			stepSettings.controllerType = PotentialContact::PotentialStepControllerType::TrustRegion;
+			stepSettings.trustRegionRadius = 0.5;
+			stepSettings.trustRegionExpandFactor = 1.5;
+			stepSettings.trustRegionShrinkFactor = 0.5;
+			if (previousStepResult != nullptr &&
+				previousStepResult->controllerType == PotentialContact::PotentialStepControllerType::TrustRegion)
+			{
+				Real warmStartRadius = previousStepResult->trustRegionRadius;
+				if (previousStepResult->hadFailure)
+				{
+					warmStartRadius *= stepSettings.trustRegionShrinkFactor;
+				}
+				else if (previousStepResult->alphaMax > 0.)
+				{
+					warmStartRadius = EXUstd::Maximum(warmStartRadius, previousStepResult->alphaMax);
+					if (!previousStepResult->stepWasClipped && previousStepResult->acceptedDistanceMargin > 0.)
+					{
+						warmStartRadius *= stepSettings.trustRegionExpandFactor;
+					}
+				}
+				stepSettings.trustRegionRadius = EXUstd::Maximum(stepSettings.alphaMinimum,
+					EXUstd::Minimum(1., warmStartRadius));
+			}
+		}
+		else
+		{
+			stepSettings.controllerType = PotentialContact::PotentialStepControllerType::CCDLineSearch;
+			stepSettings.reductionFactor = 0.25;
+		}
+		return stepSettings;
+	}
+
+	void FinalizePotentialEvaluationSummary(const PotentialContact::PotentialContactStatistics& statistics,
+		PotentialContact::EvaluationSummary& summary)
+	{
+		summary.numberOfCoarseBroadPhasePairs = statistics.numberOfCoarseBroadPhasePairs;
+		summary.numberOfBroadPhasePairs = statistics.numberOfBroadPhasePairs;
+		summary.numberOfBroadPhasePairRejects = statistics.numberOfBroadPhasePairRejects;
+		summary.numberOfVertexFaceSeeds = statistics.numberOfVertexFaceSeeds;
+		summary.numberOfEdgeEdgeSeeds = statistics.numberOfEdgeEdgeSeeds;
+		summary.numberOfSeedRejects = statistics.numberOfSeedRejects;
+		summary.numberOfVertexFaceCandidates = statistics.numberOfVertexFaceCandidates;
+		summary.numberOfEdgeEdgeCandidates = statistics.numberOfEdgeEdgeCandidates;
+		summary.numberOfTangentialCandidates = statistics.numberOfTangentialCandidates;
+		summary.numberOfCandidates = statistics.numberOfVertexFaceCandidates + statistics.numberOfEdgeEdgeCandidates;
+		summary.numberOfCollisionSetRejects = statistics.numberOfCollisionSetRejects;
+		summary.minimumDistance = statistics.minimumDistance;
+		summary.accumulatedNormalEnergy = statistics.accumulatedNormalEnergy;
+		summary.accumulatedFrictionEnergy = statistics.accumulatedFrictionEnergy;
+		summary.seedBuilderType = statistics.seedBuilderType;
+		summary.meshPairBuilderType = statistics.meshPairBuilderType;
+		summary.collisionSetBuilderType = statistics.collisionSetBuilderType;
+	}
+
+	void BuildPotentialCollisionSet(const ResizableArray<PotentialContact::PotentialRigidMesh*>& meshes,
+		const PotentialContact::PotentialModelSettings& modelSettings, PotentialContact::PotentialCollisionSet& collisionSet,
+		PotentialContact::PotentialContactStatistics& statistics)
+	{
+		statistics.Reset();
+		collisionSet.Reset();
+
+		PotentialContact::PotentialCandidateSeeds candidateSeeds;
+		ResizableArray<PotentialContact::PotentialBroadPhasePair> broadPhasePairs;
+		PotentialContact::PotentialBroadPhaseBuilder::BuildCandidateSeeds(meshes, modelSettings,
+			candidateSeeds, &broadPhasePairs, &statistics);
+
+		PotentialContact::PotentialCollisionSetBuilder::BuildCollisionSet(meshes, candidateSeeds, modelSettings,
+			collisionSet, &statistics);
+	}
+
 	void AddPotentialPointGradientToSparseVector(const PotentialContact::PotentialSurfacePointKinematics& point,
 		const ArrayIndex& ltg, const Vector3D& pointGradient, ResizableVector& generalizedGradient,
 		EXUmath::SparseVector& sparseVector)
@@ -51,6 +159,397 @@ namespace
 		for (Index i = 0; i < ltg.NumberOfItems(); i++)
 		{
 			sparseVector.AddIndexAndValue(ltg[i], generalizedGradient[i]);
+		}
+	}
+
+	void AddScaledSparseVector(const EXUmath::SparseVector& sourceVector, Real scale, EXUmath::SparseVector& destinationVector)
+	{
+		if (scale == 0.)
+		{
+			return;
+		}
+
+		for (const EXUmath::IndexValue& item : sourceVector.GetSparseIndexValues())
+		{
+			destinationVector.AddIndexAndValue(item.GetIndex(), scale * item.GetValue());
+		}
+	}
+
+	void AddPotentialCandidateDistanceGradientToSparseVector(const PotentialContact::PotentialContactCandidate& candidate,
+		const ResizableArray<PotentialContact::PotentialRigidMesh*>& meshes, ResizableVector& generalizedGradient,
+		EXUmath::SparseVector& sparseVector)
+	{
+		CHECKandTHROW(meshes.IsValidIndex(candidate.sourceMeshIndex) && meshes.IsValidIndex(candidate.targetMeshIndex),
+			"GeneralContact::AddPotentialCandidateDistanceGradientToSparseVector: invalid source/target mesh indices");
+
+		const auto& sourceMesh = *meshes[candidate.sourceMeshIndex];
+		const auto& targetMesh = *meshes[candidate.targetMeshIndex];
+
+		if (candidate.type == PotentialContact::PotentialCandidateType::VertexFace)
+		{
+			CHECKandTHROW(sourceMesh.vertexKinematics.IsValidIndex(candidate.vertexIndex) &&
+				targetMesh.triangles.IsValidIndex(candidate.triangleIndex),
+				"GeneralContact::AddPotentialCandidateDistanceGradientToSparseVector: invalid VF candidate indices");
+
+			AddPotentialPointGradientToSparseVector(sourceMesh.vertexKinematics[candidate.vertexIndex], sourceMesh.state.markerLTG,
+				candidate.normal, generalizedGradient, sparseVector);
+
+			const auto& triangle = targetMesh.triangles[candidate.triangleIndex];
+			for (Index localVertex = 0; localVertex < 3; localVertex++)
+			{
+				Vector3D faceDistanceGradient = (-candidate.barycentricCoordinates[localVertex]) * candidate.normal;
+				AddPotentialPointGradientToSparseVector(
+					targetMesh.vertexKinematics[triangle.vertices[localVertex]], targetMesh.state.markerLTG,
+					faceDistanceGradient, generalizedGradient, sparseVector);
+			}
+			return;
+		}
+
+		CHECKandTHROW(candidate.type == PotentialContact::PotentialCandidateType::EdgeEdge,
+			"GeneralContact::AddPotentialCandidateDistanceGradientToSparseVector: unsupported candidate type");
+		CHECKandTHROW(sourceMesh.edges.IsValidIndex(candidate.edgeIndexA) &&
+			targetMesh.edges.IsValidIndex(candidate.edgeIndexB),
+			"GeneralContact::AddPotentialCandidateDistanceGradientToSparseVector: invalid EE candidate indices");
+
+		const auto& edgeA = sourceMesh.edges[candidate.edgeIndexA];
+		const auto& edgeB = targetMesh.edges[candidate.edgeIndexB];
+		Real weightA0 = 1. - candidate.edgeCoordinateA;
+		Real weightA1 = candidate.edgeCoordinateA;
+		Real weightB0 = -(1. - candidate.edgeCoordinateB);
+		Real weightB1 = -candidate.edgeCoordinateB;
+
+		AddPotentialPointGradientToSparseVector(sourceMesh.vertexKinematics[edgeA.vertices[0]], sourceMesh.state.markerLTG,
+			weightA0 * candidate.normal, generalizedGradient, sparseVector);
+		AddPotentialPointGradientToSparseVector(sourceMesh.vertexKinematics[edgeA.vertices[1]], sourceMesh.state.markerLTG,
+			weightA1 * candidate.normal, generalizedGradient, sparseVector);
+		AddPotentialPointGradientToSparseVector(targetMesh.vertexKinematics[edgeB.vertices[0]], targetMesh.state.markerLTG,
+			weightB0 * candidate.normal, generalizedGradient, sparseVector);
+		AddPotentialPointGradientToSparseVector(targetMesh.vertexKinematics[edgeB.vertices[1]], targetMesh.state.markerLTG,
+			weightB1 * candidate.normal, generalizedGradient, sparseVector);
+	}
+
+	void AddPotentialLocalVertexGradientToSparseVector(
+		const PotentialContact::PotentialLocalVertexReference& reference,
+		const ResizableArray<PotentialContact::PotentialRigidMesh*>& meshes, const Vector3D& localGradient,
+		ResizableVector& generalizedGradient, EXUmath::SparseVector& sparseVector)
+	{
+		CHECKandTHROW(meshes.IsValidIndex(reference.meshIndex),
+			"GeneralContact::AddPotentialLocalVertexGradientToSparseVector: invalid mesh index");
+		const auto& mesh = *meshes[reference.meshIndex];
+		CHECKandTHROW(mesh.vertexKinematics.IsValidIndex(reference.vertexIndex),
+			"GeneralContact::AddPotentialLocalVertexGradientToSparseVector: invalid vertex index");
+		AddPotentialPointGradientToSparseVector(mesh.vertexKinematics[reference.vertexIndex], mesh.state.markerLTG,
+			localGradient, generalizedGradient, sparseVector);
+	}
+
+	void AddPotentialLocalEnergyGradientToSparseVector(const PotentialContact::PotentialContactEvaluation& evaluation,
+		const ResizableArray<PotentialContact::PotentialRigidMesh*>& meshes, ResizableVector& generalizedGradient,
+		EXUmath::SparseVector& sparseVector)
+	{
+		if (!evaluation.hasLocalDerivatives)
+		{
+			return;
+		}
+		CHECKandTHROW(3 * evaluation.localVertexReferences.NumberOfItems() == evaluation.localGradient.NumberOfItems(),
+			"GeneralContact::AddPotentialLocalEnergyGradientToSparseVector: inconsistent local gradient size");
+
+		for (Index pointIndex = 0; pointIndex < evaluation.localVertexReferences.NumberOfItems(); pointIndex++)
+		{
+			Vector3D pointGradient({
+				evaluation.localGradient[3 * pointIndex],
+				evaluation.localGradient[3 * pointIndex + 1],
+				evaluation.localGradient[3 * pointIndex + 2]
+				});
+			AddPotentialLocalVertexGradientToSparseVector(evaluation.localVertexReferences[pointIndex], meshes,
+				pointGradient, generalizedGradient, sparseVector);
+		}
+	}
+
+	void AddPotentialLocalEnergyHessianToTriplets(const PotentialContact::PotentialContactEvaluation& evaluation,
+		const ResizableArray<PotentialContact::PotentialRigidMesh*>& meshes, Real factor, SparseTripletVector& triplets)
+	{
+		if (!evaluation.hasLocalHessian || factor == 0.)
+		{
+			return;
+		}
+		const Index numberOfPoints = evaluation.localVertexReferences.NumberOfItems();
+		CHECKandTHROW(3 * numberOfPoints == evaluation.localHessian.NumberOfRows() &&
+			evaluation.localHessian.NumberOfRows() == evaluation.localHessian.NumberOfColumns(),
+			"GeneralContact::AddPotentialLocalEnergyHessianToTriplets: inconsistent local Hessian size");
+
+		for (Index rowPointIndex = 0; rowPointIndex < numberOfPoints; rowPointIndex++)
+		{
+			const auto& rowReference = evaluation.localVertexReferences[rowPointIndex];
+			CHECKandTHROW(meshes.IsValidIndex(rowReference.meshIndex),
+				"GeneralContact::AddPotentialLocalEnergyHessianToTriplets: invalid row mesh index");
+			const auto& rowMesh = *meshes[rowReference.meshIndex];
+			CHECKandTHROW(rowMesh.vertexKinematics.IsValidIndex(rowReference.vertexIndex),
+				"GeneralContact::AddPotentialLocalEnergyHessianToTriplets: invalid row vertex index");
+			const auto& rowPoint = rowMesh.vertexKinematics[rowReference.vertexIndex];
+			const auto& rowLTG = rowMesh.state.markerLTG;
+			if (rowLTG.NumberOfItems() == 0 || rowPoint.positionJacobian.NumberOfColumns() == 0)
+			{
+				continue;
+			}
+
+			for (Index colPointIndex = 0; colPointIndex < numberOfPoints; colPointIndex++)
+			{
+				const auto& colReference = evaluation.localVertexReferences[colPointIndex];
+				CHECKandTHROW(meshes.IsValidIndex(colReference.meshIndex),
+					"GeneralContact::AddPotentialLocalEnergyHessianToTriplets: invalid column mesh index");
+				const auto& colMesh = *meshes[colReference.meshIndex];
+				CHECKandTHROW(colMesh.vertexKinematics.IsValidIndex(colReference.vertexIndex),
+					"GeneralContact::AddPotentialLocalEnergyHessianToTriplets: invalid column vertex index");
+				const auto& colPoint = colMesh.vertexKinematics[colReference.vertexIndex];
+				const auto& colLTG = colMesh.state.markerLTG;
+				if (colLTG.NumberOfItems() == 0 || colPoint.positionJacobian.NumberOfColumns() == 0)
+				{
+					continue;
+				}
+
+				for (Index rowLocal = 0; rowLocal < rowLTG.NumberOfItems(); rowLocal++)
+				{
+					for (Index colLocal = 0; colLocal < colLTG.NumberOfItems(); colLocal++)
+					{
+						Real value = 0.;
+						for (Index a = 0; a < 3; a++)
+						{
+							for (Index b = 0; b < 3; b++)
+							{
+								value += rowPoint.positionJacobian(a, rowLocal) *
+									evaluation.localHessian(3 * rowPointIndex + a, 3 * colPointIndex + b) *
+									colPoint.positionJacobian(b, colLocal);
+							}
+						}
+						if (value != 0.)
+						{
+							triplets.AppendPure(EXUmath::Triplet(rowLTG[rowLocal], colLTG[colLocal], factor * value));
+						}
+					}
+				}
+			}
+		}
+	}
+
+	struct PotentialTangentialContactState
+	{
+		Real frictionCoefficient;
+		Real normalForceMagnitude;
+		Vector3D tangentialVelocity;
+		Vector3D frictionForceOnSource;
+		Real tangentialSpeed;
+		Real regularizationVelocity;
+		Real smoothingDenominator;
+		Real frictionEnergy;
+		bool active;
+		bool regularized;
+
+		PotentialTangentialContactState()
+		{
+			Reset();
+		}
+
+		void Reset()
+		{
+			frictionCoefficient = 0.;
+			normalForceMagnitude = 0.;
+			tangentialVelocity.SetAll(0.);
+			frictionForceOnSource.SetAll(0.);
+			tangentialSpeed = 0.;
+			regularizationVelocity = 0.;
+			smoothingDenominator = 0.;
+			frictionEnergy = 0.;
+			active = false;
+			regularized = false;
+		}
+	};
+
+	void AddPotentialPointForceToSparseVector(const PotentialContact::PotentialSurfacePointKinematics& point,
+		const ArrayIndex& ltg, const Vector3D& pointForce, ResizableVector& generalizedGradient,
+		EXUmath::SparseVector& sparseVector)
+	{
+		// sparseVector stores the negative of generalized forces because ComputePotentialContactODE2RHS
+		// subtracts it from the system RHS after assembly.
+		AddPotentialPointGradientToSparseVector(point, ltg, -pointForce, generalizedGradient, sparseVector);
+	}
+
+	Vector3D ComputeTrianglePointVelocity(const PotentialContact::PotentialRigidMesh& mesh,
+		const PotentialContact::PotentialContactCandidate& candidate)
+	{
+		const auto& triangle = mesh.triangles[candidate.triangleIndex];
+		Vector3D velocity(0.);
+		for (Index i = 0; i < 3; i++)
+		{
+			velocity += candidate.barycentricCoordinates[i] * mesh.vertexKinematics[triangle.vertices[i]].velocity;
+		}
+		return velocity;
+	}
+
+	Vector3D ComputeEdgePointVelocity(const PotentialContact::PotentialRigidMesh& mesh, Index edgeIndex, Real edgeCoordinate)
+	{
+		const auto& edge = mesh.edges[edgeIndex];
+		return (1. - edgeCoordinate) * mesh.vertexKinematics[edge.vertices[0]].velocity +
+			edgeCoordinate * mesh.vertexKinematics[edge.vertices[1]].velocity;
+	}
+
+	void AddTrianglePointForceToSparseVector(const PotentialContact::PotentialRigidMesh& mesh,
+		const PotentialContact::PotentialContactCandidate& candidate, const Vector3D& pointForce,
+		ResizableVector& generalizedGradient, EXUmath::SparseVector& sparseVector)
+	{
+		const auto& triangle = mesh.triangles[candidate.triangleIndex];
+		for (Index i = 0; i < 3; i++)
+		{
+			AddPotentialPointForceToSparseVector(mesh.vertexKinematics[triangle.vertices[i]], mesh.state.markerLTG,
+				candidate.barycentricCoordinates[i] * pointForce, generalizedGradient, sparseVector);
+		}
+	}
+
+	void AddEdgePointForceToSparseVector(const PotentialContact::PotentialRigidMesh& mesh, Index edgeIndex,
+		Real edgeCoordinate, const Vector3D& pointForce, ResizableVector& generalizedGradient,
+		EXUmath::SparseVector& sparseVector)
+	{
+		const auto& edge = mesh.edges[edgeIndex];
+		AddPotentialPointForceToSparseVector(mesh.vertexKinematics[edge.vertices[0]], mesh.state.markerLTG,
+			(1. - edgeCoordinate) * pointForce, generalizedGradient, sparseVector);
+		AddPotentialPointForceToSparseVector(mesh.vertexKinematics[edge.vertices[1]], mesh.state.markerLTG,
+			edgeCoordinate * pointForce, generalizedGradient, sparseVector);
+	}
+
+	void AddPotentialCandidatePointForcePairToSparseVector(const PotentialContact::PotentialContactCandidate& candidate,
+		const ResizableArray<PotentialContact::PotentialRigidMesh*>& meshes, const Vector3D& sourcePointForce,
+		const Vector3D& targetPointForce, ResizableVector& generalizedGradient, EXUmath::SparseVector& sparseVector)
+	{
+		const auto& sourceMesh = *meshes[candidate.sourceMeshIndex];
+		const auto& targetMesh = *meshes[candidate.targetMeshIndex];
+
+		if (candidate.type == PotentialContact::PotentialCandidateType::VertexFace)
+		{
+			AddPotentialPointForceToSparseVector(sourceMesh.vertexKinematics[candidate.vertexIndex], sourceMesh.state.markerLTG,
+				sourcePointForce, generalizedGradient, sparseVector);
+			AddTrianglePointForceToSparseVector(targetMesh, candidate, targetPointForce, generalizedGradient, sparseVector);
+			return;
+		}
+
+		AddEdgePointForceToSparseVector(sourceMesh, candidate.edgeIndexA, candidate.edgeCoordinateA,
+			sourcePointForce, generalizedGradient, sparseVector);
+		AddEdgePointForceToSparseVector(targetMesh, candidate.edgeIndexB, candidate.edgeCoordinateB,
+			targetPointForce, generalizedGradient, sparseVector);
+	}
+
+	void EvaluatePotentialTangentialContactState(const PotentialContact::PotentialContactCandidate& candidate,
+		const PotentialContact::PotentialContactEvaluation& normalEvaluation,
+		const ResizableArray<PotentialContact::PotentialRigidMesh*>& meshes, const Matrix& frictionPairings,
+		Real frictionRegularizationVelocity, PotentialTangentialContactState& frictionState)
+	{
+		frictionState.Reset();
+		const auto& sourceMesh = *meshes[candidate.sourceMeshIndex];
+		const auto& targetMesh = *meshes[candidate.targetMeshIndex];
+		CHECKandTHROW(sourceMesh.frictionMaterialIndex < frictionPairings.NumberOfRows() &&
+			targetMesh.frictionMaterialIndex < frictionPairings.NumberOfColumns(),
+			"GeneralContact::EvaluatePotentialTangentialContactState: invalid friction material index");
+
+		frictionState.frictionCoefficient =
+			frictionPairings(sourceMesh.frictionMaterialIndex, targetMesh.frictionMaterialIndex);
+		frictionState.normalForceMagnitude = EXUstd::Maximum(0., -normalEvaluation.derivativeWRTDistance);
+		if (frictionState.frictionCoefficient <= 0. || frictionState.normalForceMagnitude <= 0.)
+		{
+			return;
+		}
+
+		Vector3D sourceVelocity;
+		Vector3D targetVelocity;
+		if (candidate.type == PotentialContact::PotentialCandidateType::VertexFace)
+		{
+			sourceVelocity = sourceMesh.vertexKinematics[candidate.vertexIndex].velocity;
+			targetVelocity = ComputeTrianglePointVelocity(targetMesh, candidate);
+		}
+		else
+		{
+			sourceVelocity = ComputeEdgePointVelocity(sourceMesh, candidate.edgeIndexA, candidate.edgeCoordinateA);
+			targetVelocity = ComputeEdgePointVelocity(targetMesh, candidate.edgeIndexB, candidate.edgeCoordinateB);
+		}
+
+		Vector3D tangentialVelocity = sourceVelocity - targetVelocity;
+		tangentialVelocity -= (tangentialVelocity * candidate.normal) * candidate.normal;
+		const Real regularizationVelocity = EXUstd::Maximum(frictionRegularizationVelocity, 1e-12);
+		Real tangentialSpeed = tangentialVelocity.GetL2Norm();
+		Real smoothingDenominator = sqrt(tangentialSpeed * tangentialSpeed +
+			regularizationVelocity * regularizationVelocity);
+		frictionState.tangentialVelocity = tangentialVelocity;
+		frictionState.tangentialSpeed = tangentialSpeed;
+		frictionState.regularizationVelocity = regularizationVelocity;
+		frictionState.smoothingDenominator = smoothingDenominator;
+		frictionState.regularized = (tangentialSpeed <= regularizationVelocity);
+		frictionState.frictionForceOnSource =
+			(-frictionState.frictionCoefficient * frictionState.normalForceMagnitude / smoothingDenominator) * tangentialVelocity;
+		frictionState.frictionEnergy = frictionState.frictionCoefficient * frictionState.normalForceMagnitude *
+			(smoothingDenominator - regularizationVelocity);
+		frictionState.active = true;
+	}
+
+	void AddPotentialPointJacobianRowToSparseVector(const PotentialContact::PotentialSurfacePointKinematics& point,
+		const ArrayIndex& ltg, Index row, Real scale, EXUmath::SparseVector& sparseVector)
+	{
+		if (scale == 0. || ltg.NumberOfItems() == 0 || point.positionJacobian.NumberOfColumns() == 0)
+		{
+			return;
+		}
+		CHECKandTHROW(point.positionJacobian.NumberOfRows() == 3 &&
+			point.positionJacobian.NumberOfColumns() == ltg.NumberOfItems(),
+			"GeneralContact::AddPotentialPointJacobianRowToSparseVector: inconsistent point Jacobian dimensions");
+		for (Index i = 0; i < ltg.NumberOfItems(); i++)
+		{
+			sparseVector.AddIndexAndValue(ltg[i], scale * point.positionJacobian(row, i));
+		}
+	}
+
+	void BuildPotentialCandidateRelativeVelocityRows(const PotentialContact::PotentialContactCandidate& candidate,
+		const ResizableArray<PotentialContact::PotentialRigidMesh*>& meshes, Index vectorSize,
+		std::array<EXUmath::SparseVector, 3>& relativeVelocityRows)
+	{
+		for (Index row = 0; row < 3; row++)
+		{
+			relativeVelocityRows[row].SetVectorSize(vectorSize);
+			relativeVelocityRows[row].SetAllZero();
+		}
+
+		const auto& sourceMesh = *meshes[candidate.sourceMeshIndex];
+		const auto& targetMesh = *meshes[candidate.targetMeshIndex];
+		if (candidate.type == PotentialContact::PotentialCandidateType::VertexFace)
+		{
+			for (Index row = 0; row < 3; row++)
+			{
+				AddPotentialPointJacobianRowToSparseVector(sourceMesh.vertexKinematics[candidate.vertexIndex],
+					sourceMesh.state.markerLTG, row, 1., relativeVelocityRows[row]);
+			}
+			const auto& triangle = targetMesh.triangles[candidate.triangleIndex];
+			for (Index i = 0; i < 3; i++)
+			{
+				for (Index row = 0; row < 3; row++)
+				{
+					AddPotentialPointJacobianRowToSparseVector(targetMesh.vertexKinematics[triangle.vertices[i]],
+						targetMesh.state.markerLTG, row, -candidate.barycentricCoordinates[i], relativeVelocityRows[row]);
+				}
+			}
+			return;
+		}
+
+		const auto& edgeA = sourceMesh.edges[candidate.edgeIndexA];
+		const auto& edgeB = targetMesh.edges[candidate.edgeIndexB];
+		const Real weightA0 = 1. - candidate.edgeCoordinateA;
+		const Real weightA1 = candidate.edgeCoordinateA;
+		const Real weightB0 = -(1. - candidate.edgeCoordinateB);
+		const Real weightB1 = -candidate.edgeCoordinateB;
+		for (Index row = 0; row < 3; row++)
+		{
+			AddPotentialPointJacobianRowToSparseVector(sourceMesh.vertexKinematics[edgeA.vertices[0]],
+				sourceMesh.state.markerLTG, row, weightA0, relativeVelocityRows[row]);
+			AddPotentialPointJacobianRowToSparseVector(sourceMesh.vertexKinematics[edgeA.vertices[1]],
+				sourceMesh.state.markerLTG, row, weightA1, relativeVelocityRows[row]);
+			AddPotentialPointJacobianRowToSparseVector(targetMesh.vertexKinematics[edgeB.vertices[0]],
+				targetMesh.state.markerLTG, row, weightB0, relativeVelocityRows[row]);
+			AddPotentialPointJacobianRowToSparseVector(targetMesh.vertexKinematics[edgeB.vertices[1]],
+				targetMesh.state.markerLTG, row, weightB1, relativeVelocityRows[row]);
 		}
 	}
 }
@@ -249,7 +748,11 @@ void GeneralContact::Reset(bool freeMemory)
 	isActive = true;
 	verboseMode = 0;
 	initializeData = true;
-	searchTreeUpdateCounter = 0;
+	searchTreeUpdateCounter = 0;
+	lastPotentialContactSummary.Reset();
+	lastPotentialCCDStepResult.Reset();
+	totalPotentialCCDClippedSteps = 0;
+	totalPotentialCCDStepFailures = 0;
 
 	contactIsFinalized = false;
 
@@ -269,6 +772,10 @@ void GeneralContact::Reset(bool freeMemory)
 		//trigsRigidBodyBased.Flush();
 		//rigidBodyMarkerBased.Flush();
 		CallOnAllContacts(Flush, EXU_NOARG, EXU_NOARG);
+		for (Index i = 0; i < potentialRigidMeshes.NumberOfItems(); i++)
+		{
+			delete potentialRigidMeshes[i];
+		}
 		potentialRigidMeshes.Flush();
 
 		for (Index i = 0; i < allActiveContacts.NumberOfItems(); i++)
@@ -320,6 +827,10 @@ void GeneralContact::Reset(bool freeMemory)
 		globalContactIndexOffsets.SetNumberOfItems(0);
 
 		CallOnAllContacts(SetNumberOfItems, 0, EXU_NOARG);
+		for (Index i = 0; i < potentialRigidMeshes.NumberOfItems(); i++)
+		{
+			delete potentialRigidMeshes[i];
+		}
 		potentialRigidMeshes.SetNumberOfItems(0);
 	}
 
@@ -468,19 +979,19 @@ Index GeneralContact::AddRigidBodySurfaceMesh(Index rigidBodyMarkerIndex, Index 
 		PyError("GeneralContact: AddRigidBodySurfaceMesh(...): triangleList must not be empty");
 	}
 
-	PotentialContact::PotentialRigidMesh mesh;
-	mesh.markerIndex = rigidBodyMarkerIndex;
-	mesh.frictionMaterialIndex = frictionMaterialIndex;
-	mesh.staticMesh = staticMesh;
-	mesh.verticesLocal.SetNumberOfItems(pointList.NumberOfItems());
-	mesh.vertexKinematics.SetNumberOfItems(pointList.NumberOfItems());
+	auto* mesh = new PotentialContact::PotentialRigidMesh();
+	mesh->markerIndex = rigidBodyMarkerIndex;
+	mesh->frictionMaterialIndex = frictionMaterialIndex;
+	mesh->staticMesh = staticMesh;
+	mesh->verticesLocal.SetNumberOfItems(pointList.NumberOfItems());
+	mesh->vertexKinematics.SetNumberOfItems(pointList.NumberOfItems());
 
 	for (Index i = 0; i < pointList.NumberOfItems(); i++)
 	{
-		mesh.verticesLocal[i].xLocal = pointList[i];
+		mesh->verticesLocal[i].xLocal = pointList[i];
 	}
 
-	mesh.triangles.SetNumberOfItems(triangleList.NumberOfItems());
+	mesh->triangles.SetNumberOfItems(triangleList.NumberOfItems());
 	for (Index i = 0; i < triangleList.NumberOfItems(); i++)
 	{
 		const Index3& triangle = triangleList[i];
@@ -492,9 +1003,10 @@ Index GeneralContact::AddRigidBodySurfaceMesh(Index rigidBodyMarkerIndex, Index 
 					" has invalid point index " + EXUstd::ToString(triangle[j]));
 			}
 		}
-		mesh.triangles[i].vertices = triangle;
+		mesh->triangles[i].vertices = triangle;
 	}
-	mesh.triangleAABBs.SetNumberOfItems(mesh.triangles.NumberOfItems());
+	PotentialContact::PotentialSurfaceMeshRegistry::FinalizeTopology(*mesh);
+	mesh->triangleAABBs.SetNumberOfItems(mesh->triangles.NumberOfItems());
 
 	return potentialRigidMeshes.Append(mesh);
 }
@@ -514,9 +1026,9 @@ void GeneralContact::FinalizeContact(const CSystem& cSystem)//, Index3 searchTre
 	ComputeMaximumFrictionIndex(spheresMarkerBased); Index maxFricIndexSpheres = maxFrictionMaterialIndex;
 	ComputeMaximumFrictionIndex(ancfCable2D);
 	ComputeMaximumFrictionIndex(rigidBodyMarkerBased);
-	for (const auto& item : potentialRigidMeshes)
+	for (const auto* item : potentialRigidMeshes)
 	{
-		maxFrictionMaterialIndex = EXUstd::Maximum(maxFrictionMaterialIndex, item.frictionMaterialIndex);
+		maxFrictionMaterialIndex = EXUstd::Maximum(maxFrictionMaterialIndex, item->frictionMaterialIndex);
 	}
 	//CallOnAllContacts(This, EXU_NOARG, ComputeMaximumFrictionIndex);
 
@@ -668,7 +1180,7 @@ void GeneralContact::FinalizeContact(const CSystem& cSystem)//, Index3 searchTre
 
 	for (Index i = 0; i < potentialRigidMeshes.NumberOfItems(); i++)
 	{
-		auto& mesh = potentialRigidMeshes[i];
+		auto& mesh = *potentialRigidMeshes[i];
 		Index markerNumber = mesh.markerIndex;
 		if (markerNumber >= cSystem.GetSystemData().GetCMarkers().NumberOfItems())
 		{
@@ -723,7 +1235,14 @@ void GeneralContact::FinalizeContact(const CSystem& cSystem)//, Index3 searchTre
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	Real recommendedStepSize = 1; //not used
 	//if (verboseMode >= 2) { pout << "FinalizeContact: call PostNewtonStep\n"; }
-	PostNewtonStep(cSystem, tempArray, recommendedStepSize);
+	if (settings.contactFormulation == ContactFormulation::Penalty)
+	{
+		PostNewtonStep(cSystem, tempArray, recommendedStepSize);
+	}
+	else
+	{
+		lastPotentialCCDStepResult.Reset();
+	}
 	if (settings.computeContactForces)
 	{
 		systemODE2RhsContactForces.SetNumberOfItems(cSystem.GetSystemData().GetNumberOfCoordinatesODE2());
@@ -1274,7 +1793,7 @@ void GeneralContact::UpdatePotentialRigidMeshes(const CSystem& cSystem, bool com
 
 	for (Index meshIndex = 0; meshIndex < potentialRigidMeshes.NumberOfItems(); meshIndex++)
 	{
-		auto& mesh = potentialRigidMeshes[meshIndex];
+		auto& mesh = *potentialRigidMeshes[meshIndex];
 		systemData.GetCMarker(mesh.markerIndex).ComputeMarkerData(systemData, computeJacobians, markerData);
 
 		mesh.state.markerPosition = markerData.position;
@@ -1309,8 +1828,7 @@ void GeneralContact::UpdatePotentialRigidMeshes(const CSystem& cSystem, bool com
 				vertex.positionJacobian.SetNumberOfRowsAndColumns(0, 0);
 			}
 		}
-
-		PotentialContact::UpdateTriangleAABBs(mesh);
+		PotentialContact::PotentialSurfaceMeshRegistry::UpdateDerivedKinematics(mesh, computeJacobians);
 	}
 }
 
@@ -1332,57 +1850,61 @@ void GeneralContact::ComputePotentialContactODE2RHS(const CSystem& cSystem, Temp
 	{
 		return;
 	}
+	const PotentialContact::PotentialModelSettings modelSettings = BuildPotentialModelSettings(settings);
 
 	EXUmath::SparseVector& sparseVector = tempArray[0].sparseVector;
 	ResizableVector generalizedGradient;
+	EXUmath::SparseVector candidateDistanceGradient(cSystem.GetSystemData().GetNumberOfCoordinatesODE2());
+	PotentialContact::PotentialCollisionSet collisionSet;
+	PotentialContact::PotentialContactStatistics statistics;
 
-	for (Index sourceMeshIndex = 0; sourceMeshIndex < potentialRigidMeshes.NumberOfItems(); sourceMeshIndex++)
+	BuildPotentialCollisionSet(potentialRigidMeshes, modelSettings, collisionSet, statistics);
+
+	for (Index candidateIndex = 0; candidateIndex < collisionSet.normalCandidates.NumberOfItems(); candidateIndex++)
 	{
-		const auto& sourceMesh = potentialRigidMeshes[sourceMeshIndex];
-		for (Index targetMeshIndex = 0; targetMeshIndex < potentialRigidMeshes.NumberOfItems(); targetMeshIndex++)
+		const auto& candidate = collisionSet.normalCandidates[candidateIndex];
+		PotentialContact::PotentialContactEvaluation evaluation;
+		if (!PotentialContact::EvaluateNormalPotential(candidate, potentialRigidMeshes, modelSettings, evaluation))
 		{
-			if (sourceMeshIndex == targetMeshIndex)
+			continue;
+		}
+
+		statistics.accumulatedNormalEnergy += evaluation.energy;
+		if (evaluation.hasLocalDerivatives)
+		{
+			AddPotentialLocalEnergyGradientToSparseVector(evaluation, potentialRigidMeshes, generalizedGradient, sparseVector);
+		}
+		else
+		{
+			candidateDistanceGradient.SetAllZero();
+			AddPotentialCandidateDistanceGradientToSparseVector(candidate, potentialRigidMeshes, generalizedGradient, candidateDistanceGradient);
+			AddScaledSparseVector(candidateDistanceGradient, evaluation.derivativeWRTDistance, sparseVector);
+		}
+	}
+
+	if (modelSettings.enableFriction)
+	{
+		for (Index candidateIndex = 0; candidateIndex < collisionSet.tangentialCandidates.NumberOfItems(); candidateIndex++)
+		{
+			const auto& candidate = collisionSet.tangentialCandidates[candidateIndex];
+			PotentialContact::PotentialContactEvaluation normalEvaluation;
+			if (!PotentialContact::EvaluateNormalPotential(candidate, potentialRigidMeshes, modelSettings, normalEvaluation))
 			{
 				continue;
 			}
 
-			const auto& targetMesh = potentialRigidMeshes[targetMeshIndex];
-			for (Index vertexIndex = 0; vertexIndex < sourceMesh.vertexKinematics.NumberOfItems(); vertexIndex++)
+			PotentialTangentialContactState frictionState;
+			EvaluatePotentialTangentialContactState(candidate, normalEvaluation, potentialRigidMeshes,
+				settings.frictionPairings, settings.frictionProportionalZone, frictionState);
+			if (!frictionState.active)
 			{
-				for (Index triangleIndex = 0; triangleIndex < targetMesh.triangles.NumberOfItems(); triangleIndex++)
-				{
-					PotentialContact::PotentialContactCandidate candidate;
-					if (!PotentialContact::ComputeVertexFaceCandidate(sourceMesh, sourceMeshIndex, vertexIndex,
-						targetMesh, targetMeshIndex, triangleIndex, activationDistance, candidate))
-					{
-						continue;
-					}
-
-					lastPotentialContactSummary.numberOfCandidates++;
-					lastPotentialContactSummary.minimumDistance = EXUstd::Minimum(
-						lastPotentialContactSummary.minimumDistance, candidate.distance);
-
-					PotentialContact::PotentialContactEvaluation evaluation;
-					if (!PotentialContact::EvaluateBarrierPotential(candidate, activationDistance,
-						settings.barrierMinimumDistance, settings.barrierStiffness, evaluation))
-					{
-						continue;
-					}
-
-					Vector3D vertexGradient = evaluation.derivativeWRTDistance * candidate.normal;
-					AddPotentialPointGradientToSparseVector(sourceMesh.vertexKinematics[vertexIndex], sourceMesh.state.markerLTG,
-						vertexGradient, generalizedGradient, sparseVector);
-
-					const auto& triangle = targetMesh.triangles[triangleIndex];
-					for (Index localVertex = 0; localVertex < 3; localVertex++)
-					{
-						Vector3D faceGradient = (-candidate.barycentricCoordinates[localVertex]) * vertexGradient;
-						AddPotentialPointGradientToSparseVector(
-							targetMesh.vertexKinematics[triangle.vertices[localVertex]], targetMesh.state.markerLTG,
-							faceGradient, generalizedGradient, sparseVector);
-					}
-				}
+				continue;
 			}
+
+			statistics.accumulatedFrictionEnergy += frictionState.frictionEnergy;
+			AddPotentialCandidatePointForcePairToSparseVector(candidate, potentialRigidMeshes,
+				frictionState.frictionForceOnSource, -frictionState.frictionForceOnSource,
+				generalizedGradient, sparseVector);
 		}
 	}
 
@@ -1401,6 +1923,257 @@ void GeneralContact::ComputePotentialContactODE2RHS(const CSystem& cSystem, Temp
 	{
 		systemODE2RhsContactForces += systemODE2Rhs;
 	}
+
+	FinalizePotentialEvaluationSummary(statistics, lastPotentialContactSummary);
+	lastPotentialContactSummary.usedGaussNewtonHessian = settings.useGaussNewtonHessian;
+}
+
+void GeneralContact::ComputePotentialContactJacobianODE2LHS(const CSystem& cSystem, TemporaryComputationDataArray& tempArray,
+	GeneralMatrix& jacobianGM, Real factorODE2, Real factorODE2_t)
+{
+	ComputeContactDataAndBoundingBoxes(cSystem, tempArray, false, false);
+
+	lastPotentialContactSummary.Reset();
+	lastPotentialContactSummary.usedGaussNewtonHessian = true;
+
+	for (auto item : tempArray)
+	{
+		item->sparseTriplets.SetNumberOfItems(0);
+	}
+
+	const Real activationDistance = settings.barrierActivationDistance;
+	if (activationDistance <= 0. || factorODE2 == 0.)
+	{
+		return;
+	}
+	const PotentialContact::PotentialModelSettings modelSettings = BuildPotentialModelSettings(settings);
+
+	SparseTripletVector& triplets = tempArray[0].sparseTriplets;
+	ResizableVector generalizedGradient;
+	EXUmath::SparseVector candidateDistanceGradient(cSystem.GetSystemData().GetNumberOfCoordinatesODE2());
+	PotentialContact::PotentialCollisionSet collisionSet;
+	PotentialContact::PotentialContactStatistics statistics;
+
+	BuildPotentialCollisionSet(potentialRigidMeshes, modelSettings, collisionSet, statistics);
+
+	for (Index candidateIndex = 0; candidateIndex < collisionSet.normalCandidates.NumberOfItems(); candidateIndex++)
+	{
+		const auto& candidate = collisionSet.normalCandidates[candidateIndex];
+		PotentialContact::PotentialContactEvaluation evaluation;
+		if (!PotentialContact::EvaluateNormalPotential(candidate, potentialRigidMeshes, modelSettings, evaluation))
+		{
+			continue;
+		}
+
+		statistics.accumulatedNormalEnergy += evaluation.energy;
+		if (evaluation.hasLocalHessian && !modelSettings.useGaussNewtonHessian)
+		{
+			AddPotentialLocalEnergyHessianToTriplets(evaluation, potentialRigidMeshes, factorODE2, triplets);
+			continue;
+		}
+
+		candidateDistanceGradient.SetAllZero();
+		AddPotentialCandidateDistanceGradientToSparseVector(candidate, potentialRigidMeshes, generalizedGradient, candidateDistanceGradient);
+
+		// JacobianODE2LHS contributes to the solver's internal LHS assembly.
+		// The public ComputeJacobianODE2RHS API exposes the derivative of the residual,
+		// which is the negative of that LHS contribution for conservative forces.
+		Real outerProductFactor = factorODE2 * evaluation.secondDerivativeWRTDistance;
+		if (outerProductFactor != 0.)
+		{
+			const auto& sparseEntries = candidateDistanceGradient.GetSparseIndexValues();
+			for (const auto& rowEntry : sparseEntries)
+			{
+				for (const auto& colEntry : sparseEntries)
+				{
+					triplets.AppendPure(EXUmath::Triplet(rowEntry.GetIndex(), colEntry.GetIndex(),
+						outerProductFactor * rowEntry.GetValue() * colEntry.GetValue()));
+				}
+			}
+		}
+	}
+
+	if (modelSettings.enableFriction && factorODE2_t != 0.)
+	{
+		const Index vectorSize = cSystem.GetSystemData().GetNumberOfCoordinatesODE2();
+		const Real regularizationVelocity = EXUstd::Maximum(settings.frictionProportionalZone, 1e-12);
+		std::array<EXUmath::SparseVector, 3> relativeVelocityRows = {
+			EXUmath::SparseVector(vectorSize),
+			EXUmath::SparseVector(vectorSize),
+			EXUmath::SparseVector(vectorSize)
+		};
+
+		for (Index candidateIndex = 0; candidateIndex < collisionSet.tangentialCandidates.NumberOfItems(); candidateIndex++)
+		{
+			const auto& candidate = collisionSet.tangentialCandidates[candidateIndex];
+			PotentialContact::PotentialContactEvaluation normalEvaluation;
+			if (!PotentialContact::EvaluateNormalPotential(candidate, potentialRigidMeshes, modelSettings, normalEvaluation))
+			{
+				continue;
+			}
+
+			PotentialTangentialContactState frictionState;
+			EvaluatePotentialTangentialContactState(candidate, normalEvaluation, potentialRigidMeshes,
+				settings.frictionPairings, regularizationVelocity, frictionState);
+			if (!frictionState.active)
+			{
+				continue;
+			}
+
+			statistics.accumulatedFrictionEnergy += frictionState.frictionEnergy;
+			BuildPotentialCandidateRelativeVelocityRows(candidate, potentialRigidMeshes, vectorSize, relativeVelocityRows);
+			for (Index row = 0; row < 3; row++)
+			{
+				for (Index col = 0; col < 3; col++)
+				{
+					Real projectorCoefficient = ((row == col) ? 1. : 0.) -
+						candidate.normal[row] * candidate.normal[col];
+					Real smoothingCoefficient = 0.;
+					if (frictionState.smoothingDenominator > 0.)
+					{
+						smoothingCoefficient = projectorCoefficient / frictionState.smoothingDenominator -
+							(frictionState.tangentialVelocity[row] * frictionState.tangentialVelocity[col]) /
+							EXUstd::Cube(frictionState.smoothingDenominator);
+					}
+					if (smoothingCoefficient == 0.)
+					{
+						continue;
+					}
+
+					const auto& rowEntries = relativeVelocityRows[row].GetSparseIndexValues();
+					const auto& colEntries = relativeVelocityRows[col].GetSparseIndexValues();
+					for (const auto& rowEntry : rowEntries)
+					{
+						for (const auto& colEntry : colEntries)
+						{
+							triplets.AppendPure(EXUmath::Triplet(rowEntry.GetIndex(), colEntry.GetIndex(),
+								factorODE2_t * frictionState.frictionCoefficient * frictionState.normalForceMagnitude *
+								smoothingCoefficient *
+								rowEntry.GetValue() * colEntry.GetValue()));
+						}
+					}
+				}
+			}
+		}
+	}
+
+	jacobianGM.AddSparseTriplets(triplets);
+	FinalizePotentialEvaluationSummary(statistics, lastPotentialContactSummary);
+	lastPotentialContactSummary.usedGaussNewtonHessian = settings.useGaussNewtonHessian;
+}
+
+bool GeneralContact::HasPotentialCCDStepFilter() const
+{
+	return settings.contactFormulation != ContactFormulation::Penalty &&
+		settings.useNonlinearCCDStepFilter &&
+		potentialRigidMeshes.NumberOfItems() >= 2;
+}
+
+Real GeneralContact::ComputePotentialContactFeasibleNewtonStep(CSystem& cSystem, const VectorBase<Real>& ode2NewtonStep,
+	PotentialCCD::FeasibleStepResult& stepResult)
+{
+	PotentialCCD::FeasibleStepResult previousStepResult = lastPotentialCCDStepResult;
+	stepResult.Reset();
+	lastPotentialCCDStepResult.Reset();
+
+	if (!HasPotentialCCDStepFilter() || ode2NewtonStep.NumberOfItems() == 0)
+	{
+		lastPotentialCCDStepResult = stepResult;
+		return 1.;
+	}
+
+	auto& currentODE2Coords = cSystem.GetSystemData().GetCData().currentState.ODE2Coords;
+	CHECKandTHROW(currentODE2Coords.NumberOfItems() == ode2NewtonStep.NumberOfItems(),
+		"GeneralContact::ComputePotentialContactFeasibleNewtonStep: inconsistent ODE2 step size");
+
+	ResizableVector currentCoordinates;
+	currentCoordinates.CopyFrom(currentODE2Coords);
+
+	Real linearizedAlphaMax = 1.;
+	const Real activationDistance = settings.barrierActivationDistance;
+	const PotentialContact::PotentialModelSettings modelSettings = BuildPotentialModelSettings(settings);
+	const PotentialContact::PotentialStepSettings stepSettings = BuildPotentialStepSettings(settings, modelSettings.modelType, &previousStepResult);
+	if (activationDistance > 0. &&
+		stepSettings.controllerType == PotentialContact::PotentialStepControllerType::CCDLineSearch)
+	{
+		ResizableVector generalizedGradient;
+		EXUmath::SparseVector candidateDistanceGradient(currentODE2Coords.NumberOfItems());
+		PotentialContact::PotentialCollisionSet collisionSet;
+		PotentialContact::PotentialContactStatistics statistics;
+		BuildPotentialCollisionSet(potentialRigidMeshes, modelSettings, collisionSet, statistics);
+		const Real linearizedMinimumDistance = 0.;
+
+		for (Index candidateIndex = 0; candidateIndex < collisionSet.normalCandidates.NumberOfItems(); candidateIndex++)
+		{
+			const auto& candidate = collisionSet.normalCandidates[candidateIndex];
+			candidateDistanceGradient.SetAllZero();
+			AddPotentialCandidateDistanceGradientToSparseVector(candidate, potentialRigidMeshes, generalizedGradient, candidateDistanceGradient);
+
+			Real distanceRate = 0.;
+			for (const EXUmath::IndexValue& item : candidateDistanceGradient.GetSparseIndexValues())
+			{
+				distanceRate -= item.GetValue() * ode2NewtonStep[item.GetIndex()];
+			}
+
+			if (candidate.distance <= linearizedMinimumDistance)
+			{
+				if (distanceRate <= 0.)
+				{
+					linearizedAlphaMax = 0.;
+				}
+			}
+			else if (distanceRate < 0.)
+			{
+				Real candidateAlpha = 0.95 * (candidate.distance - linearizedMinimumDistance) / (-distanceRate);
+				linearizedAlphaMax = EXUstd::Minimum(linearizedAlphaMax, candidateAlpha);
+			}
+		}
+	}
+	linearizedAlphaMax = EXUstd::Maximum(0., EXUstd::Minimum(1., linearizedAlphaMax));
+	if (linearizedAlphaMax == 0.)
+	{
+		stepResult.alphaMax = 0.;
+		stepResult.stepWasClipped = true;
+		stepResult.hadFailure = true;
+		lastPotentialCCDStepResult = stepResult;
+		totalPotentialCCDClippedSteps++;
+		totalPotentialCCDStepFailures++;
+		return 0.;
+	}
+
+	auto minimumDistanceEvaluator = [&](Real alpha) -> Real
+	{
+		Real scaledAlpha = alpha * linearizedAlphaMax;
+		currentODE2Coords.CopyFrom(currentCoordinates);
+		if (scaledAlpha != 0.)
+		{
+			currentODE2Coords.MultAdd(-scaledAlpha, ode2NewtonStep);
+		}
+		UpdatePotentialRigidMeshes(cSystem, false);
+		return PotentialCCD::ComputeMinimumNormalDistance(potentialRigidMeshes);
+	};
+
+	PotentialStepController::FindFeasibleStep(stepSettings, minimumDistanceEvaluator, stepResult);
+	stepResult.alphaMax *= linearizedAlphaMax;
+	if (linearizedAlphaMax < 1. &&
+		stepSettings.controllerType == PotentialContact::PotentialStepControllerType::CCDLineSearch)
+	{
+		stepResult.stepWasClipped = true;
+	}
+
+	currentODE2Coords.CopyFrom(currentCoordinates);
+	UpdatePotentialRigidMeshes(cSystem, true);
+
+	lastPotentialCCDStepResult = stepResult;
+	if (stepResult.stepWasClipped && stepResult.alphaMax < 1.)
+	{
+		totalPotentialCCDClippedSteps++;
+	}
+	if (stepResult.hadFailure)
+	{
+		totalPotentialCCDStepFailures++;
+	}
+	return stepResult.alphaMax;
 }
 
 
@@ -2241,7 +3014,15 @@ void GeneralContact::JacobianODE2LHS(const CSystem& cSystem, TemporaryComputatio
 	//if (verboseMode >= 3) pout  << "computeODE2RHS\n";
 	if (!isActive) { return; }
 
-    STARTGLOBALTIMERmain(TScontactJacobian);
+	if (settings.contactFormulation != ContactFormulation::Penalty)
+	{
+		STARTGLOBALTIMERmain(TScontactJacobian);
+		ComputePotentialContactJacobianODE2LHS(cSystem, tempArray, jacobianGM, factorODE2, factorODE2_t);
+		STOPGLOBALTIMERmain(TScontactJacobian);
+		return;
+	}
+
+    STARTGLOBALTIMERmain(TScontactJacobian);
     ComputeContactDataAndBoundingBoxes(cSystem, tempArray, false, false);
 
 	Index nThreads = ExuThreading::TaskManager::GetNumThreads();
@@ -2943,7 +3724,12 @@ void GeneralContact::ComputeContactJacobianANCFcableCircleContact(Index gi, Inde
 //! recommended step size \f$h_{recom}\f$ after PostNewton(...): \f$h_{recom} < 0\f$: no recommendation, \f$h_{recom}==0\f$: use minimum step size, \f$h_{recom}>0\f$: use specific step size, if no smaller size requested by other reason
 Real GeneralContact::PostNewtonStep(const CSystem& cSystem, TemporaryComputationDataArray& tempArray, Real& recommendedStepSize)
 {
-	if (verboseMode >= 2) { pout << "\n****************\n  Post Newton\nt=" << cSystem.GetSystemData().GetCData().currentState.GetTime() << "\n"; }
+	if (settings.contactFormulation != ContactFormulation::Penalty)
+	{
+		return 0.;
+	}
+
+	if (verboseMode >= 2) { pout << "\n****************\n  Post Newton\nt=" << cSystem.GetSystemData().GetCData().currentState.GetTime() << "\n"; }
 
 	if (cSystem.GetSolverData().doPostNewtonIteration)
 	{

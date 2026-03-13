@@ -2470,6 +2470,44 @@ Real CSystem::PostNewtonStep(TemporaryComputationDataArray& tempArray, Real& rec
 	return PNerror;
 }
 
+Real CSystem::ComputePotentialContactFeasibleNewtonStep(const VectorBase<Real>& ode2NewtonStep,
+	PotentialCCD::FeasibleStepResult& stepResult)
+{
+	stepResult.Reset();
+
+	bool hasPotentialStepFilter = false;
+	for (GeneralContact* gc : generalContacts)
+	{
+		if (gc->HasPotentialCCDStepFilter())
+		{
+			hasPotentialStepFilter = true;
+			break;
+		}
+	}
+
+	if (!hasPotentialStepFilter)
+	{
+		return 1.;
+	}
+
+	stepResult.minimumDistance = EXUstd::MAXREAL;
+	stepResult.collisionFree = true;
+	for (GeneralContact* gc : generalContacts)
+	{
+		PotentialCCD::FeasibleStepResult localResult;
+		Real localAlpha = gc->ComputePotentialContactFeasibleNewtonStep(*this, ode2NewtonStep, localResult);
+		stepResult.alphaMax = EXUstd::Minimum(stepResult.alphaMax, localAlpha);
+		stepResult.minimumDistance = EXUstd::Minimum(stepResult.minimumDistance, localResult.minimumDistance);
+		stepResult.numberOfDistanceEvaluations += localResult.numberOfDistanceEvaluations;
+		stepResult.numberOfStepReductions += localResult.numberOfStepReductions;
+		stepResult.stepWasClipped = stepResult.stepWasClipped || localResult.stepWasClipped;
+		stepResult.collisionFree = stepResult.collisionFree && localResult.collisionFree;
+		stepResult.hadFailure = stepResult.hadFailure || localResult.hadFailure;
+	}
+
+	return stepResult.alphaMax;
+}
+
 //! function called after discontinuous iterations have been completed for one step (e.g. to finalize history variables and set initial values for next step)
 void CSystem::PostDiscontinuousIterationStep()
 {

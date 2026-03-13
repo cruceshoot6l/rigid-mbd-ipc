@@ -65,7 +65,13 @@ add_executable(cppsrc
   ..\src\System\CNode.cpp
   ..\src\System\CObjectBody.cpp
   ..\src\System\PotentialCCD.cpp
+  ..\src\System\PotentialBroadPhase.cpp
+  ..\src\System\PotentialCollisionSet.cpp
   ..\src\System\PotentialContact.cpp
+  ..\src\System\PotentialDistanceKernels.cpp
+  ..\src\System\PotentialNormalPotential.cpp
+  ..\src\System\PotentialStepController.cpp
+  ..\src\System\PotentialSurfaceMesh.cpp
   ..\src\System\MainNode.cpp
   ..\src\System\MainObject.cpp
   ..\src\tests\UnitTestBase.cpp

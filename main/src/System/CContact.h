@@ -30,6 +30,7 @@
 #include "Linalg/SearchTree.h"
 #include "Main/TemporaryComputationData.h"
 #include "System/PotentialContact.h"
+#include "System/PotentialCCD.h"
 
 #include "Objects/CObjectANCFCable2DBase.h"
 
@@ -270,6 +271,13 @@ public:
 	Real barrierActivationDistance;					//!< activation distance for barrier-based contact formulations
 	Real barrierStiffness;							//!< stiffness / scaling parameter for barrier potential
 	Real barrierMinimumDistance;					//!< lower bound distance used in barrier-based formulations
+	Index gcpBarrierPower;							//!< GCP inverse-barrier power r, consistent with IPC Toolkit smooth-contact parameters
+	Real gcpAlphaT;								//!< GCP tangential smooth-heaviside alpha parameter
+	Real gcpBetaT;								//!< GCP tangential smooth-heaviside beta parameter
+	Real gcpAlphaN;								//!< GCP normal smooth-heaviside alpha parameter
+	Real gcpBetaN;								//!< GCP normal smooth-heaviside beta parameter
+	Real gcpInteriorEpsilon;						//!< GCP interior regularization width for barycentric / edge-coordinate gating
+	bool enablePotentialFriction;					//!< if true, evaluate tangential friction forces for potential-based contact
 	bool useNonlinearCCDStepFilter;					//!< if true, nonlinear CCD based feasible-step filtering is enabled for barrier formulations
 	Real ccdTolerance;								//!< tolerance used for nonlinear CCD step filtering
 	bool useGaussNewtonHessian;						//!< if true, use a PSD / Gauss-Newton style tangent approximation for barrier-based contact
@@ -311,6 +319,13 @@ public:
 		barrierActivationDistance = 1e-3;
 		barrierStiffness = 1.;
 		barrierMinimumDistance = 1e-8;
+		gcpBarrierPower = 2;
+		gcpAlphaT = 1.;
+		gcpBetaT = 0.;
+		gcpAlphaN = 0.1;
+		gcpBetaN = 0.;
+		gcpInteriorEpsilon = 0.05;
+		enablePotentialFriction = false;
 		useNonlinearCCDStepFilter = false;
 		ccdTolerance = 1e-6;
 		useGaussNewtonHessian = true;
@@ -376,8 +391,11 @@ protected:
 
 	//this is only a base list, not directly evaluated for contacts
 	ResizableArray<ContactRigidBodyMarkerBased> rigidBodyMarkerBased;	//!< these are rigid bodies, underlying the triangles
-	ResizableArray<PotentialContact::PotentialRigidMesh> potentialRigidMeshes; //!< rigid surface meshes for potential-based contact formulations
+	ResizableArray<PotentialContact::PotentialRigidMesh*> potentialRigidMeshes; //!< rigid surface meshes for potential-based contact formulations
 	PotentialContact::EvaluationSummary lastPotentialContactSummary; //!< summary of the last potential-contact evaluation pass
+	PotentialCCD::FeasibleStepResult lastPotentialCCDStepResult; //!< summary of the last feasible-step filter call
+	Index totalPotentialCCDClippedSteps; //!< total number of clipped Newton steps since last reset
+	Index totalPotentialCCDStepFailures; //!< total number of feasible-step failures since last reset
 
 	//this is not nice but helps to avoid copy-paste error for new contacts:
 	//**ICI individual contact implementation
@@ -516,8 +534,11 @@ public:
 	const ResizableArray<ContactANCFCable2D>& GetANCFCable2D() const { return ancfCable2D; }
 	const ResizableArray<ContactTriangleRigidBodyBased>& TrigsRigidBodyBased() const { return trigsRigidBodyBased; }
 	const ResizableArray<ContactRigidBodyMarkerBased>& RigidBodyMarkerBased() const { return rigidBodyMarkerBased; }
-	const ResizableArray<PotentialContact::PotentialRigidMesh>& GetPotentialRigidMeshes() const { return potentialRigidMeshes; }
+	const ResizableArray<PotentialContact::PotentialRigidMesh*>& GetPotentialRigidMeshes() const { return potentialRigidMeshes; }
 	const PotentialContact::EvaluationSummary& GetLastPotentialContactSummary() const { return lastPotentialContactSummary; }
+	const PotentialCCD::FeasibleStepResult& GetLastPotentialCCDStepResult() const { return lastPotentialCCDStepResult; }
+	Index GetTotalPotentialCCDClippedSteps() const { return totalPotentialCCDClippedSteps; }
+	Index GetTotalPotentialCCDStepFailures() const { return totalPotentialCCDStepFailures; }
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -606,6 +627,11 @@ public:
 	//! compute contact forces and add to global system vector
 	void ComputeODE2RHS(const CSystem& cSystem, TemporaryComputationDataArray& tempArray, Vector& systemODE2Rhs);
 	void ComputePotentialContactODE2RHS(const CSystem& cSystem, TemporaryComputationDataArray& tempArray, Vector& systemODE2Rhs);
+	void ComputePotentialContactJacobianODE2LHS(const CSystem& cSystem, TemporaryComputationDataArray& tempArray,
+		GeneralMatrix& jacobianGM, Real factorODE2, Real factorODE2_t);
+	bool HasPotentialCCDStepFilter() const;
+	Real ComputePotentialContactFeasibleNewtonStep(CSystem& cSystem, const VectorBase<Real>& ode2NewtonStep,
+		PotentialCCD::FeasibleStepResult& stepResult);
 
 	//! compute LHS jacobian of ODE2RHS w.r.t. ODE2 and ODE2_t quantities; 
 	//! multiply (before added to jacobianGM) ODE2 with factorODE2 and ODE2_t with factorODE2_t

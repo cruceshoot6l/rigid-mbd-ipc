@@ -226,6 +226,16 @@ void CSolverStatic::ComputeNewtonUpdate(CSystem& computationalSystem, const Simu
     LinkedDataVector newtonSolutionODE1(data.newtonSolution, data.nODE2, data.nODE1); //temporary subvector for ODE1 components
     LinkedDataVector newtonSolutionAE(data.newtonSolution, data.startAE, data.nAE); //temporary subvector for ODE2 components
 
+    if (data.nODE2 != 0)
+    {
+        PotentialCCD::FeasibleStepResult potentialCCDStepResult;
+        Real feasibleStepAlpha = computationalSystem.ComputePotentialContactFeasibleNewtonStep(newtonSolutionODE2, potentialCCDStepResult);
+        if (feasibleStepAlpha < 1.)
+        {
+            data.newtonSolution *= feasibleStepAlpha;
+        }
+    }
+
     solutionODE2 -= newtonSolutionODE2;		//compute new displacements; newtonSolution contains the Newton correction
     solutionODE1 -= newtonSolutionODE1;		//compute new displacements; newtonSolution contains the Newton correction
     solutionAE -= newtonSolutionAE;			//compute new Lagrange multipliers; newtonSolution contains the Newton correction

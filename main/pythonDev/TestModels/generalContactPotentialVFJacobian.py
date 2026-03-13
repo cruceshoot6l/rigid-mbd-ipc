@@ -1,7 +1,7 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # This is an EXUDYN example
 #
-# Details:  Week-3 regression for minimal vertex-face potential contact residual
+# Details:  Week-4 regression for minimal vertex-face potential contact tangent
 #
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -73,37 +73,45 @@ gContact.AddRigidBodySurfaceMesh(mRigid, cube_points, cube_triangles, frictionMa
 
 mbs.Assemble()
 
+solver = exu.MainSolverStatic()
 simulationSettings = exu.SimulationSettings()
-simulationSettings.timeIntegration.numberOfSteps = 2
-simulationSettings.timeIntegration.endTime = 2e-4
-simulationSettings.timeIntegration.verboseMode = 0
 simulationSettings.solutionSettings.writeSolutionToFile = False
-simulationSettings.solutionSettings.solutionInformation = "generalContact potential VF regression"
+solver.InitializeSolver(mbs, simulationSettings)
 
-mbs.SolveDynamic(simulationSettings=simulationSettings, solverType=exu.DynamicSolverType.ExplicitEuler)
-
+solver.ComputeODE2RHS(mbs)
+residual0 = np.array(solver.GetSystemResidual(), dtype=float)
 pyData = gContact.GetPythonObject()
-contactForces = np.array(gContact.GetSystemODE2RhsContactForces(copy=True), dtype=float)
-ode2_t = np.array(mbs.systemData.GetODE2Coordinates_t(), dtype=float)
 
-if pyData["potentialContactModuleVersion"] != "PotentialContact-Week4":
-    raise ValueError("unexpected potential contact module version")
+solver.ComputeJacobianODE2RHS(mbs, scalarFactor_ODE2=1.0, scalarFactor_ODE2_t=0.0, scalarFactor_ODE1=0.0)
+jacobian = np.array(solver.GetSystemJacobian(), dtype=float)
+
+coordinates0 = np.array(mbs.systemData.GetODE2Coordinates(), dtype=float)
+coordinates_t0 = np.array(mbs.systemData.GetODE2Coordinates_t(), dtype=float)
+eps = 1e-7
+
+coordinates1 = coordinates0.copy()
+coordinates1[2] += eps
+mbs.systemData.SetODE2Coordinates(coordinates=coordinates1)
+mbs.systemData.SetODE2Coordinates_t(coordinates=coordinates_t0)
+
+solver.ComputeODE2RHS(mbs)
+residual1 = np.array(solver.GetSystemResidual(), dtype=float)
+
+mbs.systemData.SetODE2Coordinates(coordinates=coordinates0)
+mbs.systemData.SetODE2Coordinates_t(coordinates=coordinates_t0)
+solver.FinalizeSolver(mbs, simulationSettings)
+
+finite_difference = (residual1[2] - residual0[2]) / eps
+analytic = jacobian[2, 2]
+relative_error = abs(analytic - finite_difference) / max(1.0, abs(finite_difference))
+
 if pyData["lastPotentialContactCandidates"] <= 0:
-    raise ValueError("no potential vertex-face candidates detected")
-if not np.isfinite(pyData["lastPotentialContactMinimumDistance"]):
-    raise ValueError("potential contact minimum distance not updated")
-if pyData["lastPotentialContactMinimumDistance"] >= gContact.barrierActivationDistance:
-    raise ValueError("potential contact minimum distance is outside activation zone")
-if contactForces.shape[0] < 3 or contactForces[2] <= 0.0:
-    raise ValueError("expected positive z contact force from barrier residual")
-if ode2_t[2] <= 0.0:
-    raise ValueError("expected positive z velocity after explicit barrier step")
+    raise ValueError("no potential vertex-face candidates detected before tangent evaluation")
+if analytic >= 0.0:
+    raise ValueError("expected negative z-z tangent entry for repulsive barrier contact")
+if relative_error > 5e-2:
+    raise ValueError(f"potential contact tangent mismatch: analytic={analytic}, fd={finite_difference}")
 
-testValue = (
-    float(pyData["lastPotentialContactCandidates"])
-    + float(pyData["lastPotentialContactMinimumDistance"])
-    + float(contactForces[2])
-    + float(ode2_t[2])
-)
+testValue = float(abs(analytic)) + float(relative_error) + float(pyData["lastPotentialContactCandidates"])
 
-exu.Print("generalContactPotentialVF=", testValue)
+exu.Print("generalContactPotentialVFJacobian=", testValue)

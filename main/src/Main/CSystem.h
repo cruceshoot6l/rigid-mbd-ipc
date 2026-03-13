@@ -135,6 +135,8 @@ public:
 
 	SolverData& GetSolverData() { return solverData; }
 	const SolverData& GetSolverData() const { return solverData; }
+	Real ComputePotentialContactFeasibleNewtonStep(const VectorBase<Real>& ode2NewtonStep,
+		PotentialCCD::FeasibleStepResult& stepResult);
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	// CSystem management functions
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

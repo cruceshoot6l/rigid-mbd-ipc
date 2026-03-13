@@ -1,0 +1,3685 @@
+{
+  "formatVersion": 1,
+  "entries": {
+    "legacy_signatures.generalContactPotentialSettings": {
+      "kind": "float",
+      "value": 6.002510099999999,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.0005
+    },
+    "legacy_signatures.generalContactRigidBodySurfaceMesh": {
+      "kind": "float",
+      "value": 2.8624901351087004,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.0005
+    },
+    "legacy_signatures.generalContactPotentialVF": {
+      "kind": "float",
+      "value": 61.30321068334856,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.0005
+    },
+    "legacy_signatures.generalContactPotentialVFJacobian": {
+      "kind": "float",
+      "value": 10002.000007244793,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.0005
+    },
+    "legacy_signatures.generalContactPotentialGCPExactHessian": {
+      "kind": "float",
+      "value": 10002.00524209061,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.0005
+    },
+    "legacy_signatures.generalContactPotentialEE": {
+      "kind": "float",
+      "value": 271.0061882243207,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.0005
+    },
+    "legacy_signatures.generalContactPotentialEEJacobian": {
+      "kind": "float",
+      "value": 32401.000011636406,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.0005
+    },
+    "model_split.ipc.builderType": {
+      "kind": "str",
+      "value": "IPCCompatible"
+    },
+    "model_split.ipc.rejected": {
+      "kind": "int",
+      "value": 0
+    },
+    "model_split.ipc.candidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "model_split.ipc.vf": {
+      "kind": "int",
+      "value": 2
+    },
+    "model_split.ipc.ee": {
+      "kind": "int",
+      "value": 0
+    },
+    "model_split.ipc.minimumDistance": {
+      "kind": "float",
+      "value": 0.040000001531826354,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "model_split.ipc.forceZ": {
+      "kind": "float",
+      "value": 0.22977392245469436,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "model_split.ipc.velocityZ": {
+      "kind": "float",
+      "value": 3.063652717020348e-05,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "model_split.gcp.builderType": {
+      "kind": "str",
+      "value": "IPCCompatible"
+    },
+    "model_split.gcp.rejected": {
+      "kind": "int",
+      "value": 0
+    },
+    "model_split.gcp.candidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "model_split.gcp.vf": {
+      "kind": "int",
+      "value": 2
+    },
+    "model_split.gcp.ee": {
+      "kind": "int",
+      "value": 0
+    },
+    "model_split.gcp.minimumDistance": {
+      "kind": "float",
+      "value": 0.04000039506173035,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "model_split.gcp.forceZ": {
+      "kind": "float",
+      "value": 59.2553090536796,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "model_split.gcp.velocityZ": {
+      "kind": "float",
+      "value": 0.007901234607223436,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "model_split.ogc.builderType": {
+      "kind": "str",
+      "value": "OGCFeasibleRegion"
+    },
+    "model_split.ogc.rejected": {
+      "kind": "int",
+      "value": 0
+    },
+    "model_split.ogc.candidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "model_split.ogc.vf": {
+      "kind": "int",
+      "value": 2
+    },
+    "model_split.ogc.ee": {
+      "kind": "int",
+      "value": 0
+    },
+    "model_split.ogc.minimumDistance": {
+      "kind": "float",
+      "value": 0.040000001531826354,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "model_split.ogc.forceZ": {
+      "kind": "float",
+      "value": 0.22977392245469436,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "model_split.ogc.velocityZ": {
+      "kind": "float",
+      "value": 3.063652717020348e-05,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "collision_set_split.gcp.meshPairBuilderType": {
+      "kind": "str",
+      "value": "IPCCompatible"
+    },
+    "collision_set_split.gcp.coarseBroadPhasePairs": {
+      "kind": "int",
+      "value": 2
+    },
+    "collision_set_split.gcp.seedBuilderType": {
+      "kind": "str",
+      "value": "IPCCompatible"
+    },
+    "collision_set_split.gcp.vfSeeds": {
+      "kind": "int",
+      "value": 8
+    },
+    "collision_set_split.gcp.eeSeeds": {
+      "kind": "int",
+      "value": 96
+    },
+    "collision_set_split.gcp.seedRejected": {
+      "kind": "int",
+      "value": 0
+    },
+    "collision_set_split.gcp.broadPhaseRejected": {
+      "kind": "int",
+      "value": 0
+    },
+    "collision_set_split.gcp.builderType": {
+      "kind": "str",
+      "value": "IPCCompatible"
+    },
+    "collision_set_split.gcp.rejected": {
+      "kind": "int",
+      "value": 0
+    },
+    "collision_set_split.gcp.broadPhasePairs": {
+      "kind": "int",
+      "value": 2
+    },
+    "collision_set_split.gcp.candidates": {
+      "kind": "int",
+      "value": 7
+    },
+    "collision_set_split.gcp.vf": {
+      "kind": "int",
+      "value": 4
+    },
+    "collision_set_split.gcp.ee": {
+      "kind": "int",
+      "value": 3
+    },
+    "collision_set_split.gcp.minimumDistance": {
+      "kind": "float",
+      "value": 0.035258120903757295,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "collision_set_split.gcp.forceZ": {
+      "kind": "float",
+      "value": 255.51415419698517,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "collision_set_split.ogc.meshPairBuilderType": {
+      "kind": "str",
+      "value": "OGCFeasibleRegion"
+    },
+    "collision_set_split.ogc.coarseBroadPhasePairs": {
+      "kind": "int",
+      "value": 2
+    },
+    "collision_set_split.ogc.seedBuilderType": {
+      "kind": "str",
+      "value": "OGCFeasibleRegion"
+    },
+    "collision_set_split.ogc.vfSeeds": {
+      "kind": "int",
+      "value": 4
+    },
+    "collision_set_split.ogc.eeSeeds": {
+      "kind": "int",
+      "value": 3
+    },
+    "collision_set_split.ogc.seedRejected": {
+      "kind": "int",
+      "value": 32
+    },
+    "collision_set_split.ogc.broadPhaseRejected": {
+      "kind": "int",
+      "value": 1
+    },
+    "collision_set_split.ogc.builderType": {
+      "kind": "str",
+      "value": "OGCFeasibleRegion"
+    },
+    "collision_set_split.ogc.rejected": {
+      "kind": "int",
+      "value": 3
+    },
+    "collision_set_split.ogc.broadPhasePairs": {
+      "kind": "int",
+      "value": 1
+    },
+    "collision_set_split.ogc.candidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "collision_set_split.ogc.vf": {
+      "kind": "int",
+      "value": 2
+    },
+    "collision_set_split.ogc.ee": {
+      "kind": "int",
+      "value": 2
+    },
+    "collision_set_split.ogc.minimumDistance": {
+      "kind": "float",
+      "value": 0.035258120903757295,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "collision_set_split.ogc.forceZ": {
+      "kind": "float",
+      "value": 2.2338661238828386,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "step_controller_split.gcp.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "step_controller_split.gcp.clippedSteps": {
+      "kind": "int",
+      "value": 0
+    },
+    "step_controller_split.gcp.minimumDistance": {
+      "kind": "float",
+      "value": 0.029165997545889485,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "step_controller_split.gcp.coordinateZ": {
+      "kind": "float",
+      "value": -0.010834002454110502,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "step_controller_split.ogc.controllerType": {
+      "kind": "str",
+      "value": "TrustRegion"
+    },
+    "step_controller_split.ogc.trustRegionRadius": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "step_controller_split.ogc.minimumDistance": {
+      "kind": "float",
+      "value": 4.720000000000001,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "step_controller_split.ogc.coordinateZ": {
+      "kind": "float",
+      "value": -4.91,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mixed_dynamic.ipc.position[0]": {
+      "kind": "float",
+      "value": 0.04003477047795501,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.ipc.position[1]": {
+      "kind": "float",
+      "value": 6.296815588442865e-37,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.ipc.position[2]": {
+      "kind": "float",
+      "value": 0.07730118405708646,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.ipc.forceNorm": {
+      "kind": "float",
+      "value": 42.69702095859547,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mixed_dynamic.ipc.vf": {
+      "kind": "int",
+      "value": 16
+    },
+    "mixed_dynamic.ipc.ee": {
+      "kind": "int",
+      "value": 19
+    },
+    "mixed_dynamic.ipc.tangential": {
+      "kind": "int",
+      "value": 0
+    },
+    "mixed_dynamic.ipc.candidates": {
+      "kind": "int",
+      "value": 35
+    },
+    "mixed_dynamic.ipc.minimumDistance": {
+      "kind": "float",
+      "value": 0.010034770477955035,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mixed_dynamic.ipc.ccdMinimumDistance": {
+      "kind": "float",
+      "value": 0.010034770477955035,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.ipc.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "mixed_dynamic.ipc.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "mixed_dynamic.ipc.alpha": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mixed_dynamic.gcp.position[0]": {
+      "kind": "float",
+      "value": 0.04602029988081976,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.gcp.position[1]": {
+      "kind": "float",
+      "value": -2.2228192321173317e-56,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.gcp.position[2]": {
+      "kind": "float",
+      "value": 0.17802579529480217,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.gcp.forceNorm": {
+      "kind": "float",
+      "value": 12625.987165727975,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mixed_dynamic.gcp.vf": {
+      "kind": "int",
+      "value": 12
+    },
+    "mixed_dynamic.gcp.ee": {
+      "kind": "int",
+      "value": 16
+    },
+    "mixed_dynamic.gcp.tangential": {
+      "kind": "int",
+      "value": 0
+    },
+    "mixed_dynamic.gcp.candidates": {
+      "kind": "int",
+      "value": 28
+    },
+    "mixed_dynamic.gcp.minimumDistance": {
+      "kind": "float",
+      "value": 0.016020299880819766,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mixed_dynamic.gcp.ccdMinimumDistance": {
+      "kind": "float",
+      "value": 0.016020299880819766,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.gcp.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "mixed_dynamic.gcp.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "mixed_dynamic.gcp.alpha": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mixed_dynamic.ogc.position[0]": {
+      "kind": "float",
+      "value": 0.03989961424223135,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.ogc.position[1]": {
+      "kind": "float",
+      "value": -4.251851458589266e-36,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.ogc.position[2]": {
+      "kind": "float",
+      "value": 0.07743964142804403,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.ogc.forceNorm": {
+      "kind": "float",
+      "value": 43.75178339215301,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mixed_dynamic.ogc.vf": {
+      "kind": "int",
+      "value": 16
+    },
+    "mixed_dynamic.ogc.ee": {
+      "kind": "int",
+      "value": 18
+    },
+    "mixed_dynamic.ogc.tangential": {
+      "kind": "int",
+      "value": 0
+    },
+    "mixed_dynamic.ogc.candidates": {
+      "kind": "int",
+      "value": 34
+    },
+    "mixed_dynamic.ogc.minimumDistance": {
+      "kind": "float",
+      "value": 0.009899614242231375,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mixed_dynamic.ogc.ccdMinimumDistance": {
+      "kind": "float",
+      "value": 0.009899614242231375,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mixed_dynamic.ogc.controllerType": {
+      "kind": "str",
+      "value": "TrustRegion"
+    },
+    "mixed_dynamic.ogc.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "mixed_dynamic.ogc.alpha": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.baseline.velocityX": {
+      "kind": "float",
+      "value": 0.04999582531283497,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.baseline.positionZ": {
+      "kind": "float",
+      "value": 0.08669614755388011,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "friction.baseline.forceX": {
+      "kind": "float",
+      "value": -0.005267010177641751,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.baseline.forceZ": {
+      "kind": "float",
+      "value": 736.1164062987276,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.baseline.vfCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "friction.baseline.eeCandidates": {
+      "kind": "int",
+      "value": 5
+    },
+    "friction.baseline.contactCandidates": {
+      "kind": "int",
+      "value": 9
+    },
+    "friction.baseline.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "friction.baseline.frictionEnergy": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "friction.baseline.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "friction.baseline.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "friction.ipc.velocityX": {
+      "kind": "float",
+      "value": 0.049771208288831054,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.ipc.positionZ": {
+      "kind": "float",
+      "value": 0.08504935365937577,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "friction.ipc.forceX": {
+      "kind": "float",
+      "value": -0.12194884857922515,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.ipc.forceZ": {
+      "kind": "float",
+      "value": 4.086712905015304,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.ipc.vfCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "friction.ipc.eeCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "friction.ipc.contactCandidates": {
+      "kind": "int",
+      "value": 8
+    },
+    "friction.ipc.tangentialCandidates": {
+      "kind": "int",
+      "value": 6
+    },
+    "friction.ipc.frictionEnergy": {
+      "kind": "float",
+      "value": 0.0030335007073926876,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "friction.ipc.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "friction.ipc.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "friction.gcp.velocityX": {
+      "kind": "float",
+      "value": 0.014425919425283738,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.gcp.positionZ": {
+      "kind": "float",
+      "value": 0.08700972713031846,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "friction.gcp.forceX": {
+      "kind": "float",
+      "value": -7.375852567631415,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.gcp.forceZ": {
+      "kind": "float",
+      "value": 852.0026246575773,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.gcp.vfCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "friction.gcp.eeCandidates": {
+      "kind": "int",
+      "value": 5
+    },
+    "friction.gcp.contactCandidates": {
+      "kind": "int",
+      "value": 9
+    },
+    "friction.gcp.tangentialCandidates": {
+      "kind": "int",
+      "value": 7
+    },
+    "friction.gcp.frictionEnergy": {
+      "kind": "float",
+      "value": 0.05318958444758114,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "friction.gcp.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "friction.gcp.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "friction.ogc.velocityX": {
+      "kind": "float",
+      "value": 0.04991824705732925,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.ogc.positionZ": {
+      "kind": "float",
+      "value": 0.08504533583376399,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "friction.ogc.forceX": {
+      "kind": "float",
+      "value": -0.04086036702797055,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.ogc.forceZ": {
+      "kind": "float",
+      "value": 1.3639590191650086,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "friction.ogc.vfCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "friction.ogc.eeCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "friction.ogc.contactCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "friction.ogc.tangentialCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "friction.ogc.frictionEnergy": {
+      "kind": "float",
+      "value": 0.001017309226010609,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "friction.ogc.controllerType": {
+      "kind": "str",
+      "value": "TrustRegion"
+    },
+    "friction.ogc.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "tangential_split.ipc.velocityX": {
+      "kind": "float",
+      "value": 0.049771208288831054,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "tangential_split.ipc.positionZ": {
+      "kind": "float",
+      "value": 0.08504935365937577,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "tangential_split.ipc.forceX": {
+      "kind": "float",
+      "value": -0.12194884857922515,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "tangential_split.ipc.forceZ": {
+      "kind": "float",
+      "value": 4.086712905015304,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "tangential_split.ipc.vfCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "tangential_split.ipc.eeCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "tangential_split.ipc.contactCandidates": {
+      "kind": "int",
+      "value": 8
+    },
+    "tangential_split.ipc.tangentialCandidates": {
+      "kind": "int",
+      "value": 6
+    },
+    "tangential_split.ipc.frictionEnergy": {
+      "kind": "float",
+      "value": 0.0030335007073926876,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "tangential_split.ipc.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "tangential_split.ipc.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "tangential_split.gcp.velocityX": {
+      "kind": "float",
+      "value": 0.014425919425283738,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "tangential_split.gcp.positionZ": {
+      "kind": "float",
+      "value": 0.08700972713031846,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "tangential_split.gcp.forceX": {
+      "kind": "float",
+      "value": -7.375852567631415,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "tangential_split.gcp.forceZ": {
+      "kind": "float",
+      "value": 852.0026246575773,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "tangential_split.gcp.vfCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "tangential_split.gcp.eeCandidates": {
+      "kind": "int",
+      "value": 5
+    },
+    "tangential_split.gcp.contactCandidates": {
+      "kind": "int",
+      "value": 9
+    },
+    "tangential_split.gcp.tangentialCandidates": {
+      "kind": "int",
+      "value": 7
+    },
+    "tangential_split.gcp.frictionEnergy": {
+      "kind": "float",
+      "value": 0.05318958444758114,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "tangential_split.gcp.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "tangential_split.gcp.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "tangential_split.ogc.velocityX": {
+      "kind": "float",
+      "value": 0.04991824705732925,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "tangential_split.ogc.positionZ": {
+      "kind": "float",
+      "value": 0.08504533583376399,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "tangential_split.ogc.forceX": {
+      "kind": "float",
+      "value": -0.04086036702797055,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "tangential_split.ogc.forceZ": {
+      "kind": "float",
+      "value": 1.3639590191650086,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "tangential_split.ogc.vfCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "tangential_split.ogc.eeCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "tangential_split.ogc.contactCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "tangential_split.ogc.tangentialCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "tangential_split.ogc.frictionEnergy": {
+      "kind": "float",
+      "value": 0.001017309226010609,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "tangential_split.ogc.controllerType": {
+      "kind": "str",
+      "value": "TrustRegion"
+    },
+    "tangential_split.ogc.hadFailure": {
+      "kind": "bool",
+      "value": false
+    },
+    "ccd_step_filter.on.clippedSteps": {
+      "kind": "int",
+      "value": 0
+    },
+    "ccd_step_filter.on.minimumDistance": {
+      "kind": "float",
+      "value": 0.029165997545889485,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "ccd_step_filter.on.contactMinimumDistance": {
+      "kind": "float",
+      "value": 0.029165997545889485,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "ccd_step_filter.on.coordinateZ": {
+      "kind": "float",
+      "value": -0.010834002454110502,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "ccd_step_filter.off.clippedSteps": {
+      "kind": "int",
+      "value": 0
+    },
+    "ccd_step_filter.off.coordinateZ": {
+      "kind": "float",
+      "value": -0.010834002454110502,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.contactCandidates": {
+      "kind": "int",
+      "value": 20
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.vfCandidates": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.eeCandidates": {
+      "kind": "int",
+      "value": 14
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 1.1775693440128311e-15,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.7861451041278095,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.frictionEnergyPerTangentialCandidate": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_stop.IPCBarrier.newtonStepsCount": {
+      "kind": "int",
+      "value": 18
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.contactCandidates": {
+      "kind": "int",
+      "value": 3
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.vfCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.eeCandidates": {
+      "kind": "int",
+      "value": 1
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.8376950946674041,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.frictionEnergyPerTangentialCandidate": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_stop.GCPBarrier.newtonStepsCount": {
+      "kind": "int",
+      "value": 20
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.controllerType": {
+      "kind": "str",
+      "value": "TrustRegion"
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.contactCandidates": {
+      "kind": "int",
+      "value": 18
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.vfCandidates": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.eeCandidates": {
+      "kind": "int",
+      "value": 12
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 1.1775693440128311e-15,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.7863984764049836,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.frictionEnergyPerTangentialCandidate": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_stop.OGCBarrier.newtonStepsCount": {
+      "kind": "int",
+      "value": 18
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.contactCandidates": {
+      "kind": "int",
+      "value": 24
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.vfCandidates": {
+      "kind": "int",
+      "value": 10
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.eeCandidates": {
+      "kind": "int",
+      "value": 14
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.0767037757843354,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.2996087618717594,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.frictionEnergyPerTangentialCandidate": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.articulated_arm_stop.IPCBarrier.newtonStepsCount": {
+      "kind": "int",
+      "value": 44
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.contactCandidates": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.vfCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.eeCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.8344631165434035,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.frictionEnergyPerTangentialCandidate": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.articulated_arm_stop.GCPBarrier.newtonStepsCount": {
+      "kind": "int",
+      "value": 56
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.controllerType": {
+      "kind": "str",
+      "value": "TrustRegion"
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.contactCandidates": {
+      "kind": "int",
+      "value": 20
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.vfCandidates": {
+      "kind": "int",
+      "value": 8
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.eeCandidates": {
+      "kind": "int",
+      "value": 12
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.07634094986539734,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.29935700224451495,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.frictionEnergyPerTangentialCandidate": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.articulated_arm_stop.OGCBarrier.newtonStepsCount": {
+      "kind": "int",
+      "value": 44
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.contactCandidates": {
+      "kind": "int",
+      "value": 8
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.vfCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.eeCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.tangentialCandidates": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7009870731875153,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.velocityRetention": {
+      "kind": "float",
+      "value": 0.9954241657766211,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.75,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.frictionEnergyPerTangentialCandidate": {
+      "kind": "float",
+      "value": 0.0005055834512321146,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_friction.IPCBarrier.newtonStepsCount": {
+      "kind": "int",
+      "value": 39
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.controllerType": {
+      "kind": "str",
+      "value": "CCDLineSearch"
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.contactCandidates": {
+      "kind": "int",
+      "value": 9
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.vfCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.eeCandidates": {
+      "kind": "int",
+      "value": 5
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.tangentialCandidates": {
+      "kind": "int",
+      "value": 7
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7401945426063691,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.velocityRetention": {
+      "kind": "float",
+      "value": 0.28851838850567474,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.7777777777777778,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.frictionEnergyPerTangentialCandidate": {
+      "kind": "float",
+      "value": 0.007598512063940162,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_friction.GCPBarrier.newtonStepsCount": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.controllerType": {
+      "kind": "str",
+      "value": "TrustRegion"
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.contactCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.vfCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.eeCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.tangentialCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7009067166752797,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.velocityRetention": {
+      "kind": "float",
+      "value": 0.998364941146585,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.frictionEnergyPerTangentialCandidate": {
+      "kind": "float",
+      "value": 0.0005086546130053045,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_benchmarks.guided_slider_friction.OGCBarrier.newtonStepsCount": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_ablations.gcp_step_filter_off.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_stop"
+    },
+    "mechanism_ablations.gcp_step_filter_off.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_ablations.gcp_step_filter_off.experimentSet": {
+      "kind": "str",
+      "value": "ablation"
+    },
+    "mechanism_ablations.gcp_step_filter_off.experimentTag": {
+      "kind": "str",
+      "value": "gcp_step_filter_off"
+    },
+    "mechanism_ablations.gcp_step_filter_off.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.8376950946674041,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcp_step_filter_off.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcp_step_filter_off.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.gcp_step_filter_off.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_off.contactCandidates": {
+      "kind": "int",
+      "value": 3
+    },
+    "mechanism_ablations.gcp_step_filter_off.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_ablations.gcp_step_filter_off.newtonStepsCount": {
+      "kind": "int",
+      "value": 20
+    },
+    "mechanism_ablations.gcp_step_filter_off.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 50.405699759721756,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_ablations.gcp_step_filter_off.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_ablations.gcp_step_filter_off.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_ablations.gcp_step_filter_off.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_off.barrierStiffness": {
+      "kind": "float",
+      "value": 1200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_off.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_off.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_off.sweepParameter": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.gcp_step_filter_off.sweepValue": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.gcp_step_filter_on.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_stop"
+    },
+    "mechanism_ablations.gcp_step_filter_on.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_ablations.gcp_step_filter_on.experimentSet": {
+      "kind": "str",
+      "value": "ablation"
+    },
+    "mechanism_ablations.gcp_step_filter_on.experimentTag": {
+      "kind": "str",
+      "value": "gcp_step_filter_on"
+    },
+    "mechanism_ablations.gcp_step_filter_on.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.8376950946674041,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcp_step_filter_on.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcp_step_filter_on.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.gcp_step_filter_on.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_on.contactCandidates": {
+      "kind": "int",
+      "value": 3
+    },
+    "mechanism_ablations.gcp_step_filter_on.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_ablations.gcp_step_filter_on.newtonStepsCount": {
+      "kind": "int",
+      "value": 20
+    },
+    "mechanism_ablations.gcp_step_filter_on.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 45.79370003193617,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_ablations.gcp_step_filter_on.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_ablations.gcp_step_filter_on.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_ablations.gcp_step_filter_on.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_on.barrierStiffness": {
+      "kind": "float",
+      "value": 1200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_on.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_on.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcp_step_filter_on.sweepParameter": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.gcp_step_filter_on.sweepValue": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.experimentSet": {
+      "kind": "str",
+      "value": "ablation"
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_friction_off"
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.740194542739069,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.velocityRetention": {
+      "kind": "float",
+      "value": 0.9999025674537874,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.contactCandidates": {
+      "kind": "int",
+      "value": 8
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.newtonStepsCount": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 17.474899999797344,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.barrierStiffness": {
+      "kind": "float",
+      "value": 300.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.sweepParameter": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.gcpbarrier_friction_off.sweepValue": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.experimentSet": {
+      "kind": "str",
+      "value": "ablation"
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_friction_on"
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7401945426063691,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.velocityRetention": {
+      "kind": "float",
+      "value": 0.28851838850567474,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.7777777777777778,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.contactCandidates": {
+      "kind": "int",
+      "value": 9
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.tangentialCandidates": {
+      "kind": "int",
+      "value": 7
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.newtonStepsCount": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 61.05230003595352,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.barrierStiffness": {
+      "kind": "float",
+      "value": 300.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.sweepParameter": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.gcpbarrier_friction_on.sweepValue": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.formulation": {
+      "kind": "str",
+      "value": "OGCBarrier"
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.experimentSet": {
+      "kind": "str",
+      "value": "ablation"
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.experimentTag": {
+      "kind": "str",
+      "value": "ogcbarrier_friction_off"
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7009067166746341,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.velocityRetention": {
+      "kind": "float",
+      "value": 0.9999974512863572,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.contactCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.newtonStepsCount": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 0.5676997825503349,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.barrierStiffness": {
+      "kind": "float",
+      "value": 250.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.sweepParameter": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.ogcbarrier_friction_off.sweepValue": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.formulation": {
+      "kind": "str",
+      "value": "OGCBarrier"
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.experimentSet": {
+      "kind": "str",
+      "value": "ablation"
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.experimentTag": {
+      "kind": "str",
+      "value": "ogcbarrier_friction_on"
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7009067166752797,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.velocityRetention": {
+      "kind": "float",
+      "value": 0.998364941146585,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.contactCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.tangentialCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.newtonStepsCount": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 0.9304000996053219,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.barrierStiffness": {
+      "kind": "float",
+      "value": 250.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.sweepParameter": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_ablations.ogcbarrier_friction_on.sweepValue": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_stop"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_activation_0.04"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.6633030750577024,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.contactCandidates": {
+      "kind": "int",
+      "value": 3
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.newtonStepsCount": {
+      "kind": "int",
+      "value": 24
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 78.48770031705499,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.04,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.barrierStiffness": {
+      "kind": "float",
+      "value": 1200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.sweepParameter": {
+      "kind": "str",
+      "value": "barrierActivationDistance"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.04.sweepValue": {
+      "kind": "float",
+      "value": 0.04,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_stop"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.formulation": {
+      "kind": "str",
+      "value": "OGCBarrier"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.experimentTag": {
+      "kind": "str",
+      "value": "ogcbarrier_activation_0.04"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.1887187656228767,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.8112812343771233,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.contactCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.newtonStepsCount": {
+      "kind": "int",
+      "value": 19
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 3.338600043207407,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.04,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.barrierStiffness": {
+      "kind": "float",
+      "value": 1200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.sweepParameter": {
+      "kind": "str",
+      "value": "barrierActivationDistance"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.04.sweepValue": {
+      "kind": "float",
+      "value": 0.04,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_stop"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_activation_0.07"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7435861206819235,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.contactCandidates": {
+      "kind": "int",
+      "value": 3
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.newtonStepsCount": {
+      "kind": "int",
+      "value": 20
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 54.074099753051996,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.07,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.barrierStiffness": {
+      "kind": "float",
+      "value": 1200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.sweepParameter": {
+      "kind": "str",
+      "value": "barrierActivationDistance"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.07.sweepValue": {
+      "kind": "float",
+      "value": 0.07,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_stop"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.formulation": {
+      "kind": "str",
+      "value": "OGCBarrier"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.experimentTag": {
+      "kind": "str",
+      "value": "ogcbarrier_activation_0.07"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 1.1775693440128311e-15,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.7949896178072918,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.contactCandidates": {
+      "kind": "int",
+      "value": 16
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.newtonStepsCount": {
+      "kind": "int",
+      "value": 29
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 3.81499994546175,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.07,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.barrierStiffness": {
+      "kind": "float",
+      "value": 1200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.sweepParameter": {
+      "kind": "str",
+      "value": "barrierActivationDistance"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.07.sweepValue": {
+      "kind": "float",
+      "value": 0.07,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_stop"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_activation_0.08"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.8376950946674041,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.contactCandidates": {
+      "kind": "int",
+      "value": 3
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.newtonStepsCount": {
+      "kind": "int",
+      "value": 20
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 56.01529963314533,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.barrierStiffness": {
+      "kind": "float",
+      "value": 1200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.sweepParameter": {
+      "kind": "str",
+      "value": "barrierActivationDistance"
+    },
+    "mechanism_sensitivity.gcpbarrier_activation_0.08.sweepValue": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_stop"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.formulation": {
+      "kind": "str",
+      "value": "OGCBarrier"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.experimentTag": {
+      "kind": "str",
+      "value": "ogcbarrier_activation_0.08"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 1.1775693440128311e-15,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.7863984764049836,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.velocityRetention": {
+      "kind": "none",
+      "value": null
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.contactCandidates": {
+      "kind": "int",
+      "value": 18
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.tangentialCandidates": {
+      "kind": "int",
+      "value": 0
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.newtonStepsCount": {
+      "kind": "int",
+      "value": 18
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 2.3806998506188393,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.enablePotentialFriction": {
+      "kind": "bool",
+      "value": false
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.barrierStiffness": {
+      "kind": "float",
+      "value": 1200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.sweepParameter": {
+      "kind": "str",
+      "value": "barrierActivationDistance"
+    },
+    "mechanism_sensitivity.ogcbarrier_activation_0.08.sweepValue": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_friction_zone_0.25"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7401945425595607,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.velocityRetention": {
+      "kind": "float",
+      "value": 0.006080197712726307,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.7777777777777778,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.contactCandidates": {
+      "kind": "int",
+      "value": 9
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.tangentialCandidates": {
+      "kind": "int",
+      "value": 7
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.newtonStepsCount": {
+      "kind": "int",
+      "value": 5
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 54.290799889713526,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.barrierStiffness": {
+      "kind": "float",
+      "value": 300.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.frictionProportionalZone": {
+      "kind": "float",
+      "value": 0.25,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.sweepParameter": {
+      "kind": "str",
+      "value": "frictionProportionalZone"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.25.sweepValue": {
+      "kind": "float",
+      "value": 0.25,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.formulation": {
+      "kind": "str",
+      "value": "OGCBarrier"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.experimentTag": {
+      "kind": "str",
+      "value": "ogcbarrier_friction_zone_0.25"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7009067166752181,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.velocityRetention": {
+      "kind": "float",
+      "value": 0.9936007497410543,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.contactCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.tangentialCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.newtonStepsCount": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 0.5843997932970524,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.barrierStiffness": {
+      "kind": "float",
+      "value": 250.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.frictionProportionalZone": {
+      "kind": "float",
+      "value": 0.25,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.sweepParameter": {
+      "kind": "str",
+      "value": "frictionProportionalZone"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.25.sweepValue": {
+      "kind": "float",
+      "value": 0.25,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_friction_zone_0.50"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.740194542574848,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.velocityRetention": {
+      "kind": "float",
+      "value": 0.05624394521863266,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.75,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.contactCandidates": {
+      "kind": "int",
+      "value": 8
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.tangentialCandidates": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.newtonStepsCount": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 54.67389989644289,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.barrierStiffness": {
+      "kind": "float",
+      "value": 300.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.frictionProportionalZone": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.sweepParameter": {
+      "kind": "str",
+      "value": "frictionProportionalZone"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_0.50.sweepValue": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.formulation": {
+      "kind": "str",
+      "value": "OGCBarrier"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.experimentTag": {
+      "kind": "str",
+      "value": "ogcbarrier_friction_zone_0.50"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7009067166752586,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.velocityRetention": {
+      "kind": "float",
+      "value": 0.996747165765719,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.contactCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.tangentialCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.newtonStepsCount": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 0.5761999636888504,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.barrierStiffness": {
+      "kind": "float",
+      "value": 250.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.frictionProportionalZone": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.sweepParameter": {
+      "kind": "str",
+      "value": "frictionProportionalZone"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_0.50.sweepValue": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_friction_zone_1.00"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7401945426063691,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.velocityRetention": {
+      "kind": "float",
+      "value": 0.28851838850567474,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.7777777777777778,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.contactCandidates": {
+      "kind": "int",
+      "value": 9
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.tangentialCandidates": {
+      "kind": "int",
+      "value": 7
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.newtonStepsCount": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 66.86659995466471,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.barrierStiffness": {
+      "kind": "float",
+      "value": 300.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.sweepParameter": {
+      "kind": "str",
+      "value": "frictionProportionalZone"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.00.sweepValue": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.formulation": {
+      "kind": "str",
+      "value": "OGCBarrier"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.experimentTag": {
+      "kind": "str",
+      "value": "ogcbarrier_friction_zone_1.00"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7009067166752797,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.velocityRetention": {
+      "kind": "float",
+      "value": 0.998364941146585,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.contactCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.tangentialCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.newtonStepsCount": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 0.6237002089619637,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.barrierStiffness": {
+      "kind": "float",
+      "value": 250.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.sweepParameter": {
+      "kind": "str",
+      "value": "frictionProportionalZone"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.00.sweepValue": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_friction_zone_1.50"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7401945426302348,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.velocityRetention": {
+      "kind": "float",
+      "value": 0.44529870736042504,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.75,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.contactCandidates": {
+      "kind": "int",
+      "value": 8
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.tangentialCandidates": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.newtonStepsCount": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 54.544500075280666,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.barrierStiffness": {
+      "kind": "float",
+      "value": 300.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.sweepParameter": {
+      "kind": "str",
+      "value": "frictionProportionalZone"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_zone_1.50.sweepValue": {
+      "kind": "float",
+      "value": 1.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.formulation": {
+      "kind": "str",
+      "value": "OGCBarrier"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.experimentTag": {
+      "kind": "str",
+      "value": "ogcbarrier_friction_zone_1.50"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7009067166752866,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.velocityRetention": {
+      "kind": "float",
+      "value": 0.9989080619351565,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.contactCandidates": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.tangentialCandidates": {
+      "kind": "int",
+      "value": 2
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.newtonStepsCount": {
+      "kind": "int",
+      "value": 4
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 0.5871998146176338,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.barrierStiffness": {
+      "kind": "float",
+      "value": 250.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.sweepParameter": {
+      "kind": "str",
+      "value": "frictionProportionalZone"
+    },
+    "mechanism_sensitivity.ogcbarrier_friction_zone_1.50.sweepValue": {
+      "kind": "float",
+      "value": 1.5,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_friction_stiffness_200"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7275450467526168,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.velocityRetention": {
+      "kind": "float",
+      "value": 0.4370439630913351,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.75,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.contactCandidates": {
+      "kind": "int",
+      "value": 8
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.tangentialCandidates": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.newtonStepsCount": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 53.64010017365217,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.barrierStiffness": {
+      "kind": "float",
+      "value": 200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.sweepParameter": {
+      "kind": "str",
+      "value": "barrierStiffness"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_200.sweepValue": {
+      "kind": "float",
+      "value": 200.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_friction_stiffness_250"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7339229509712808,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.velocityRetention": {
+      "kind": "float",
+      "value": 0.35568530958626166,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.7777777777777778,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.contactCandidates": {
+      "kind": "int",
+      "value": 9
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.tangentialCandidates": {
+      "kind": "int",
+      "value": 7
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.newtonStepsCount": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 49.12859993055463,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.barrierStiffness": {
+      "kind": "float",
+      "value": 250.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.sweepParameter": {
+      "kind": "str",
+      "value": "barrierStiffness"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_250.sweepValue": {
+      "kind": "float",
+      "value": 250.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.benchmark": {
+      "kind": "str",
+      "value": "guided_slider_friction"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.formulation": {
+      "kind": "str",
+      "value": "GCPBarrier"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.experimentSet": {
+      "kind": "str",
+      "value": "sensitivity"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.experimentTag": {
+      "kind": "str",
+      "value": "gcpbarrier_friction_stiffness_300"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.normalizedMinimumDistance": {
+      "kind": "float",
+      "value": 0.7401945426063691,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.normalizedProxyInterference": {
+      "kind": "float",
+      "value": 0.0,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.velocityRetention": {
+      "kind": "float",
+      "value": 0.28851838850567474,
+      "abs_tol": 5e-08,
+      "rel_tol": 0.005
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.tangentialCandidateRatio": {
+      "kind": "float",
+      "value": 0.7777777777777778,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.contactCandidates": {
+      "kind": "int",
+      "value": 9
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.tangentialCandidates": {
+      "kind": "int",
+      "value": 7
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.newtonStepsCount": {
+      "kind": "int",
+      "value": 6
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.solveTimeMilliseconds": {
+      "kind": "float",
+      "value": 50.916800275444984,
+      "abs_tol": 10.0,
+      "rel_tol": 0.75
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.useNonlinearCCDStepFilter": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.enablePotentialFriction": {
+      "kind": "bool",
+      "value": true
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.barrierActivationDistance": {
+      "kind": "float",
+      "value": 0.08,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.barrierStiffness": {
+      "kind": "float",
+      "value": 300.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.barrierMinimumDistance": {
+      "kind": "float",
+      "value": 1e-06,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.frictionProportionalZone": {
+      "kind": "float",
+      "value": 1.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.sweepParameter": {
+      "kind": "str",
+      "value": "barrierStiffness"
+    },
+    "mechanism_sensitivity.gcpbarrier_friction_stiffness_300.sweepValue": {
+      "kind": "float",
+      "value": 300.0,
+      "abs_tol": 1e-10,
+      "rel_tol": 1e-06
+    }
+  }
+}
